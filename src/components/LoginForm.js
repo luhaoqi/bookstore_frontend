@@ -6,6 +6,7 @@ import '../css/my-login.css';
 import '../css/http_stackpath.bootstrapcdn.com_bootstrap_4.3.1_css_bootstrap.css'
 import {authUser} from '../services/userService'
 import localStorage from "localStorage";
+import {history} from '../utils/history';
 
 
 export class LoginForm extends React.Component {
@@ -43,10 +44,10 @@ export class LoginForm extends React.Component {
     }
 
     handleSubmit = e => {
-        e.preventDefault();
         const {username, password} = this.state;
         console.log("username:" + username);
         console.log("password:" + password);
+        e.preventDefault();
         authUser(username, password)
             .then(res => {
                 if (res.uid === 0) {
@@ -68,19 +69,28 @@ export class LoginForm extends React.Component {
                 })
                 localStorage.setItem("user_state", res.state);
                 this.setState({isAuth: res.state});
+                if (res.state === 1)
+                    history.replace("/");
+                else if (res.state === 2)
+                    history.replace("/admin");
             })
             .catch(err => {
                 console.log('ERROR 登录时连接失败 ');
             });
-        // this.props.form.validateFields((err, values) => {
-        //     if (!err) {
-        //         console.log('Received values of form: ', values);
-        //         userService.login(values);
-        //     }
-        // });
     };
 
+    validate(username, password) {
+        // true means invalid, so our conditions got reversed
+        return {
+            username: username.length === 0,
+            password: password.length === 0,
+        };
+    }
+
     render() {
+        const errors = this.validate(this.state.username, this.state.password);
+        const isEnabled = !Object.keys(errors).some((x) => errors[x]);
+
         // const { getFieldDecorator } = this.props.form;
         if (this.state.isAuth === 0) {
             return (
@@ -100,8 +110,10 @@ export class LoginForm extends React.Component {
                                                     <div className="form-group">
                                                         {/*把下面的email全部换成了username*/}
                                                         <label htmlFor="username">username</label>
-                                                        <input id="username" type="username" className={"form-control"}
+                                                        <input id="username" type="username"
+                                                               className={errors.username ? "form-control error" : "form-control"}
                                                                name="username"
+                                                               placeholder="Enter username"
                                                                value={this.state.username}
                                                                onChange={this.handleInputChange}
                                                                required autoFocus/>
@@ -116,8 +128,10 @@ export class LoginForm extends React.Component {
                                                                 Forgot Password?
                                                             </Link>
                                                         </label>
-                                                        <input id="password" type="password" className={"form-control"}
+                                                        <input id="password" type="password"
+                                                               className={errors.password ? "form-control error" : "form-control"}
                                                                name="password"
+                                                               placeholder="Enter password"
                                                                value={this.state.password}
                                                                onChange={this.handleInputChange}
                                                                required data-eye/>
@@ -138,7 +152,7 @@ export class LoginForm extends React.Component {
 
                                                     <div className={"form-group m-0"}>
                                                         <button type="submit" className="btn btn-primary btn-block"
-                                                                onSubmit={this.handleSubmit}>
+                                                                onClick={this.handleSubmit} disabled={!isEnabled}>
                                                             Login
                                                         </button>
                                                     </div>
