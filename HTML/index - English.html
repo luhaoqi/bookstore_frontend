@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!---标签栏标题--->
+    <title>BookStore</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/home_page.css"/>
+
+    <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<!---导航栏--->
+<nav class="navbar navbar-expand-md navbar-dark">
+    <!---左上角标题--->
+    <a class="navbar-brand" href="#">BookStore</a>
+    <div class="input-group">
+        <!---搜索栏--->
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <span class="input-group-btn">
+                    <button class="btn btn-secondary button_search" type="button">Search</button>
+                </span>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <!---右上角跳转--->
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="navbar-nav mr-4">
+            <li class="nav-item">
+                <a class="nav-link" href="#">private office</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="#">Favorites</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="#">cart</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="Login/login.html">logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!---目录栏--->
+<div class="catalog">
+    <ul class="nav">
+        <li><a href="#">Books</a>
+            <ul>
+                <li><a href="#">Fiction</a>
+                    <ul>
+                        <li><a href="fiction.html">fantasy</a></li>
+                        <li><a href="#">detectives</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">children books</a></li>
+            </ul>
+        </li>
+        <li><a href="#">Stationery</a>
+            <ul>
+                <li><a href="#">Writing utensils</a></li>
+                <li><a href="#">notebooks</a></li>
+            </ul>
+        </li>
+        <li><a href="#">textbooks</a></li>
+        <li><a href="#">Creativity and hobby</a></li>
+    </ul>
+</div>
+<!---主体信息--->
+<div class="info">
+    <!---轮播展示--->
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <!---可以放链接 此为示例--->
+                <a href="http://book.dangdang.com/01.03.htm">
+                    <img class="d-block w-100" src="img/carousel/carousel_1.jpg" alt="First slide">
+                </a>
+            </div>
+            <div class="carousel-item">
+                <!---可以放链接 此为示例--->
+                <a href="http://book.dangdang.com/01.03.htm">
+                    <img class="d-block w-100" src="img/carousel/carousel_2.jpg" alt="Second slide">
+                </a>
+            </div>
+            <div class="carousel-item">
+                <!---可以放链接 此为示例--->
+                <a href="http://book.dangdang.com/01.03.htm">
+                    <img class="d-block w-100" src="img/carousel/carousel_3.jpg" alt="Third slide">
+                </a>
+            </div>
+            <div class="carousel-item">
+                <!---可以放链接 此为示例--->
+                <a href="http://book.dangdang.com/01.03.htm">
+                    <img class="d-block w-100" src="img/carousel/carousel_4.jpg" alt="4th slide">
+                </a>
+            </div>
+            <div class="carousel-item">
+                <!---可以放链接 此为示例--->
+                <a href="http://book.dangdang.com/01.03.htm">
+                    <img class="d-block w-100" src="img/carousel/carousel_5.jpg" alt="5th slide">
+                </a>
+            </div>
+            <div class="carousel-item">
+                <!---可以放链接 此为示例--->
+                <a href="http://book.dangdang.com/01.03.htm">
+                    <img class="d-block w-100" src="img/carousel/carousel_6.jpg" alt="6th slide">
+                </a>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <!---书籍内容 之后可以加上链接--->
+    <div class="new">
+        <h3>New Books</h3>
+        <figure class="book_window">
+            <a href="product_page.html"><img src="img/newbooks/newbook_1.jpg" alt="book"></a>
+            <figcaption>人世间</figcaption>
+            <figcaption>作者:梁晓声</figcaption>
+            <figcaption>￥ 238</figcaption>
+            <a class="buy" href="#">buy</a>
+        </figure>
+        <figure class="book_window">
+            <a href="#"><img src="img/newbooks/newbook_2.jpg" alt="book"></a>
+            <figcaption>蛤蟆先生去看心理医生</figcaption>
+            <figcaption>作者:罗伯特·戴博德</figcaption>
+            <figcaption>￥ 38</figcaption>
+            <a class="buy" href="#">buy</a>
+        </figure>
+        <figure class="book_window">
+            <a href="#"><img src="img/newbooks/newbook_3.jpg" alt="book"></a>
+            <figcaption>遥远的救世主</figcaption>
+            <figcaption>作者:豆豆</figcaption>
+            <figcaption>￥ 48</figcaption>
+            <a class="buy" href="#">buy</a>
+        </figure>
+        <figure class="book_window">
+            <a href="#"><img src="img/newbooks/newbook_4.jpg" alt="book"></a>
+            <figcaption>次第花开 修订版</figcaption>
+            <figcaption>作者:希阿荣博堪布</figcaption>
+            <figcaption>￥ 39.80</figcaption>
+            <a class="buy" href="#">buy</a>
+        </figure>
+        <figure class="book_window">
+            <a href="#"><img src="img/newbooks/newbook_5.jpg" alt="book"></a>
+            <figcaption>生死疲劳</figcaption>
+            <figcaption>作者:莫言</figcaption>
+            <figcaption>￥ 69.90</figcaption>
+            <a class="buy" href="#">buy</a>
+        </figure>
+        <figure class="book_window">
+            <a href="#"><img src="img/newbooks/newbook_6.jpg" alt="book"></a>
+            <figcaption>活着（精装）</figcaption>
+            <figcaption>作者:余华</figcaption>
+            <figcaption>￥ 45</figcaption>
+            <a class="buy" href="#">buy</a>
+        </figure>
+    </div>
+
+    <div>
+        <div class="bestseller">
+            <h3>Best Seller</h3>
+            <figure class="book_window">
+                <a href="product_page.html"><img src="img/newbooks/newbook_1.jpg" alt="book"></a>
+                <figcaption>人世间</figcaption>
+                <figcaption>作者:梁晓声</figcaption>
+                <figcaption>￥ 238</figcaption>
+                <a class="buy" href="#">buy</a>
+            </figure>
+            <figure class="book_window">
+                <a href="#"><img src="img/newbooks/newbook_2.jpg" alt="book"></a>
+                <figcaption>蛤蟆先生去看心理医生</figcaption>
+                <figcaption>作者:罗伯特·戴博德</figcaption>
+                <figcaption>￥ 38</figcaption>
+                <a class="buy" href="#">buy</a>
+            </figure>
+            <figure class="book_window">
+                <a href="#"><img src="img/newbooks/newbook_3.jpg" alt="book"></a>
+                <figcaption>遥远的救世主</figcaption>
+                <figcaption>作者:豆豆</figcaption>
+                <figcaption>￥ 48</figcaption>
+                <a class="buy" href="#">buy</a>
+            </figure>
+            <figure class="book_window">
+                <a href="#"><img src="img/newbooks/newbook_4.jpg" alt="book"></a>
+                <figcaption>次第花开 修订版</figcaption>
+                <figcaption>作者:希阿荣博堪布</figcaption>
+                <figcaption>￥ 39.80</figcaption>
+                <a class="buy" href="#">buy</a>
+            </figure>
+            <figure class="book_window">
+                <a href="#"><img src="img/newbooks/newbook_5.jpg" alt="book"></a>
+                <figcaption>生死疲劳</figcaption>
+                <figcaption>作者:莫言</figcaption>
+                <figcaption>￥ 69.90</figcaption>
+                <a class="buy" href="#">buy</a>
+            </figure>
+            <figure class="book_window">
+                <a href="#"><img src="img/newbooks/newbook_6.jpg" alt="book"></a>
+                <figcaption>活着（精装）</figcaption>
+                <figcaption>作者:余华</figcaption>
+                <figcaption>￥ 45</figcaption>
+                <a class="buy" href="#">buy</a>
+            </figure>
+        </div>
+    </div>
+</div>
+
+<!---底部信息--->
+<div class="info-menu">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 flex-column column">
+                <h5>About company</h5>
+                <a href="#">About us</a>
+                <a href="#">History</a>
+                <a href="#">Delivery</a>
+                <a href="#">Store map</a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 column">
+                <h5>Contacts</h5>
+                <h6>Head office:</h6>
+                <p>SJTU, 800 Dongchuan Road, ShangHai, China</p>
+                <p>Phone: 137******** </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---后可学习样例弄图片 在mySider里面--->
+<div class="pages">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="fiction.html">Fiction</a></li>
+        <li><a href="product_page.html">product_page</a></li>
+        <li><a href="cart.html">cart</a></li>
+        <li><a href="private_office.html">private_office</a></li>
+        <li><a href="order_history.html">order_history</a></li>
+    </ul>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,237 @@
+.navbar{
+    background:black;
+}
+.nav-link , .navbar-brand{
+    color: white !important;
+    cursor: pointer;
+}
+.nav-link{
+    margin-right: 1em !important;
+}
+.nav-link:hover{
+    background: #4169E1;
+}
+.navbar-collapse{
+    justify-content: flex-end;
+}
+
+.input-group{
+    max-width: 700px;
+}
+
+.button_search{
+    background: #4169E1;
+    border-radius: 0 10px 10px 0;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0) !important;
+    color:white;
+}
+.button_search:hover{
+    background: #1E90FF;
+    color:white;
+}
+
+.navbar-toggler{
+    margin-top: 4px;
+}
+
+.input-group input{
+    margin-right: 0!important;
+}
+.form-control:focus {
+    border-color: #ced4da;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0) !important;
+}
+
+
+.catalog{
+    background: black;
+
+}
+.catalog ul{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.catalog ul.nav li {
+    background: black;
+    list-style: none;
+    text-align: center;
+    width: 200px;
+}
+.catalog ul.nav li a {
+    text-decoration: none;
+    display: block;
+    color: white;
+    padding: 5px 5px 5px 15px;
+
+}
+.catalog ul.nav li ul {
+    display: none;
+}
+
+
+.catalog ul.nav li:hover {
+    position: relative;
+    background: #4169E1;
+}
+.catalog ul.nav li:hover > ul {
+    display: block;
+}
+.catalog ul.nav li:hover ul{
+    position: absolute;
+    top: auto;
+    left: 50px;
+    z-index: 2;
+}
+
+
+.main_part{
+    margin-top: 50px;
+}
+
+.main_part img{
+    float: left;
+}
+
+.book-info{
+    padding-left: 0;
+}
+
+.book-info p{
+    margin: 0;
+}
+
+.book-info a{
+    color: black;
+    text-decoration: underline;
+}
+.book-info a:hover{
+    color: black;
+}
+.price_and_buy p{
+    display: inline-block;
+    font-weight: bold;
+    font-size: x-large;
+    margin-right: 20px;
+}
+.price_and_buy{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.buy{
+    text-decoration: none!important;
+    outline: none;
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px 10px;
+    border-radius: 10px;
+    background: black;
+    color: white!important;
+    transition: .15s ease-in-out;
+}
+.buy:hover {
+    color: white;
+    background: #4169E1;
+    text-decoration: none
+}
+
+.review{
+    margin: 50px;
+    border: 2px black;
+}
+
+
+.form-group button{
+    margin-top: 10px;
+    background: black;
+    color: white!important;
+}
+.form-group button:hover{
+    color: white;
+    background: #4169E1;
+}
+.form-group button:focus{
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0) !important;
+}
+
+textarea.form-control{
+    max-width: 700px;
+}
+
+.review_example{
+    border-top: 2px solid #C0C0C0;
+    max-width: 1000px;
+    margin: 50px;
+}
+.review_example img{
+    width: 40px;
+}
+
+.review_example .example{
+    padding-top: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #C0C0C0;
+}
+
+.review_example p{
+    margin-top: 10px;
+}
+.example a{
+    color: black;
+    text-decoration: underline;
+}
+.example a:hover{
+    color: black;
+}
+
+.date{
+    font-size: small;
+    margin: 0;
+}
+
+.info-menu{
+    background: black;
+    color: white;
+    margin-top: 100px;
+}
+
+.info-menu .column{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.info-menu p{
+    margin: 2px;
+}
+
+.info-menu a{
+    margin: 2px;
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+
+
+.pages{
+    position: absolute;
+    top: 150px;
+    left: 0;
+}
+.pages ul{
+    padding: 7px;
+}
+.pages li{
+    list-style: none;
+    height: 30px;
+    width: 30px;
+    background: #C0C0C0;
+    margin-bottom: 5px;
+    border: 1px solid;
+    text-align: center;
+}
+
+.pages a{
+    color: black;
+}

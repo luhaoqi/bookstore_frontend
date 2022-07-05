@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CH">
+<head>
+    <meta charset="UTF-8">
+    <title>书籍详情</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/product_page(style).css"/>
+
+    <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<!---导航栏--->
+<nav class="navbar navbar-expand-md navbar-dark">
+    <!---左上角标题--->
+    <a class="navbar-brand" href="index.html">在线书店</a>
+    <div class="input-group">
+        <!---搜索栏--->
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <span class="input-group-btn">
+                    <button class="btn btn-secondary button_search" type="button">搜索</button>
+                </span>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <!---右上角跳转--->
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="navbar-nav mr-4">
+            <li class="nav-item">
+                <a class="nav-link" href="private_office.html">个人主页</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="cart.html">购物车</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="order_history.html">购买记录</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="Login/login.html">退出</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!---目录栏--->
+<div class="catalog">
+    <ul class="nav">
+        <li><a href="fiction.html">科幻</a>
+            <ul>
+                <li><a href="fiction.html">科幻</a></li>
+                <li><a href="#">幻想</a></li>
+            </ul>
+        </li>
+        <li><a href="#">文学</a></li>
+        <li><a href="#">小说</a></li>
+        <li><a href="#">童书</a></li>
+        <li><a href="#">历史</a></li>
+        <li><a href="#">管理</a></li>
+    </ul>
+</div>
+<!---书籍介绍--->
+<div class="main_part">
+    <div class="container">
+        <h3>人世间</h3>
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-5 col-5 book-img">
+                <img align="center" src="img/newbooks/newbook_1.jpg" class="img-fluid">
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-5 col-5 book-info">
+                <div>
+                    <p>作者:</p><a href="#" class="info-book">梁晓声</a>
+                    <p>出版社:</p><a href="#" class="info-book">中国青年出版社</a>
+                </div>
+                <div class="price_and_buy">
+                    <p class="price">￥ 238</p>
+                    <a class="buy" href="#">购买</a>
+                </div>
+                <p>开 本：16开</p>
+                <p>纸 张：胶版纸</p>
+                <p>包 装：平装-胶订</p>
+                <p>国际标准书号ISBN：9787515350264</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-7">
+                <h5>摘要</h5>
+                <p>
+                    立足底层，直指人心，于人间烟火处彰显道义和担当，在悲欢离合中抒写情怀和热望，堪称一部“五十年中国百姓生活史”
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!---书评发送--->
+<div class="review">
+    <h4>书评</h4>
+    <p>
+        你可以在这里留下你的书评，我们需要每个读者的意见。
+    </p>
+    <div class="form-group">
+        <textarea class="form-control text" id="exampleFormControlTextarea1" rows="3" placeholder="评论"></textarea>
+        <button type="button" class="btn">发送</button>
+    </div>
+</div>
+<!---书评--->
+<div class="review_example">
+    <div class="example">
+        <img align="center" src="img/enot.jpg">
+        <a href="#">用户1</a>
+        <p>
+            每一代人有每一代人的磨难与压力。带着体会而不是庆幸的心态去读这个故事，如今的我们，又何尝不是同样处在某个洪流中吗？有时候只是我们忽略或刻意忽略了。体会故事中人物的心情，学习到其中的心态和经验，或许能把这些用在自己当下的面临的抉择中。
+        </p>
+        <p class="date">2020-06-16 19:24:53</p>
+    </div>
+</div>
+
+<!---底部信息--->
+<div class="info-menu">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 flex-column column">
+                <h5>About company</h5>
+                <a href="#">About us</a>
+                <a href="#">History</a>
+                <a href="#">Delivery</a>
+                <a href="#">Store map</a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 column">
+                <h5>Contacts</h5>
+                <h6>Head office:</h6>
+                <p>SJTU, 800 Dongchuan Road, ShangHai, China</p>
+                <p>Phone: 137******** </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---后可学习样例弄图片 在mySider里面--->
+<!---
+<div class="pages">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="fiction.html">Fiction</a></li>
+        <li><a href="product_page.html">product_page</a></li>
+        <li><a href="cart.html">cart</a></li>
+        <li><a href="private_office.html">private_office</a></li>
+        <li><a href="order_history.html">order_history</a></li>
+    </ul>
+</div>
+--->
+
+</body>
+</html>

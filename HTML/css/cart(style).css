@@ -1,0 +1,253 @@
+.navbar{
+    background:black;
+}
+.nav-link , .navbar-brand{
+    color: white !important;
+    cursor: pointer;
+}
+.nav-link{
+    margin-right: 1em !important;
+}
+.nav-link:hover{
+    background: #4169E1;
+}
+.navbar-collapse{
+    justify-content: flex-end;
+}
+
+.input-group{
+    max-width: 700px;
+}
+
+.button_search{
+    background: #4169E1;
+    border-radius: 0 10px 10px 0;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0) !important;
+    color:white;
+}
+.button_search:hover{
+    background: #1E90FF;
+    color:white;
+}
+
+.navbar-toggler{
+    margin-top: 4px;
+}
+
+.input-group input{
+    margin-right: 0!important;
+}
+.form-control:focus {
+    border-color: #ced4da;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0) !important;
+}
+
+
+.catalog{
+    background: black;
+
+}
+.catalog ul{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.catalog ul.nav li {
+    background: black;
+    list-style: none;
+    text-align: center;
+    width: 200px;
+}
+.catalog ul.nav li a {
+    text-decoration: none;
+    display: block;
+    color: white;
+    padding: 5px 5px 5px 15px;
+
+}
+.catalog ul.nav li ul {
+    display: none;
+}
+
+
+
+.catalog ul.nav li:hover {
+    position: relative;
+    background: #4169E1;
+}
+.catalog ul.nav li:hover > ul {
+    display: block;
+}
+.catalog ul.nav li:hover ul{
+    position: absolute;
+    top: auto;
+    left: 50px;
+    z-index: 2;
+}
+
+h3{
+    margin: 50px;
+    text-align: center;
+
+}
+.product{
+    display: inline-block;
+}
+figure img{
+    width: 170px;
+    padding:10px;
+}
+
+
+.book_window {
+    border: 1px solid #333;
+    padding: 5px;
+    margin: 15px;
+    background: #f0f0f0;
+    width: 190px;
+    text-align: center;
+
+}
+
+.book_window figcaption{
+    white-space: normal !important;
+    font-weight: bold;
+    text-align: left !important;
+}
+
+.amount{
+    text-align: center;
+}
+.amount li{
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+    background: black;
+    font-size: medium;
+    text-decoration: none;
+}
+.amount .first-item:hover,.last-item:hover{
+    background: #4169E1;
+}
+.amount a{
+    color: white;
+    text-decoration: none;
+}
+.amount a:hover{
+    color: white;
+    text-decoration: none;
+}
+.item{
+    width: 35px!important;
+    color: white;
+    text-decoration: none;
+}
+
+.first-item{
+    border-radius: 5px 0 0 5px;
+}
+.last-item{
+    border-radius: 0 5px 5px 0;
+}
+
+
+.order_list{
+    font-size:large;
+}
+.order_list p{
+    margin-bottom: 0;
+}
+.order_list div p{
+    display: inline-block;
+    text-decoration: underline;
+}
+.base{
+    margin-right: 20px;
+    text-decoration: none!important;
+}
+
+
+.registration .form-control{
+    max-width: 500px;
+}
+.basic_data{
+    max-width: 300px;
+}
+.your_address .form-group{
+    display: inline-block;
+}
+
+.address{
+    max-width: 90px!important;
+}
+
+input[type=checkbox]{
+    margin-right: 3px;
+}
+.payment p{
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.checkout{
+    text-decoration: none!important;
+    outline: none;
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 20px 10px;
+    border-radius: 10px;
+    background: black;
+    color: white!important;
+    transition: .15s ease-in-out;
+}
+.checkout:hover {
+    color: white;
+    background: #4169E1;
+    text-decoration: none
+}
+
+.info-menu{
+    background: black;
+    color: white;
+    margin-top: 100px;
+}
+
+.info-menu .column{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.info-menu p{
+    margin: 2px;
+}
+
+.info-menu a{
+    margin: 2px;
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+
+
+.pages{
+    position: absolute;
+    top: 150px;
+    left: 0;
+}
+.pages ul{
+    padding: 7px;
+}
+.pages li{
+    list-style: none;
+    height: 30px;
+    width: 30px;
+    background: #C0C0C0;
+    margin-bottom: 5px;
+    border: 1px solid;
+    text-align: center;
+}
+
+.pages a{
+    color: black;
+}

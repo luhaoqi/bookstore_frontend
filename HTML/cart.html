@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CH">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/cart(style).css"/>
+
+    <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+</head>
+<!---导航栏--->
+<nav class="navbar navbar-expand-md navbar-dark">
+    <!---左上角标题--->
+    <a class="navbar-brand" href="index.html">在线书店</a>
+    <div class="input-group">
+        <!---搜索栏--->
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <span class="input-group-btn">
+                    <button class="btn btn-secondary button_search" type="button">搜索</button>
+                </span>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <!---右上角跳转--->
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="navbar-nav mr-4">
+            <li class="nav-item">
+                <a class="nav-link" href="private_office.html">个人主页</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="cart.html">购物车</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="order_history.html">购买记录</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="Login/login.html">退出</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!---目录栏--->
+<div class="catalog">
+    <ul class="nav">
+        <li><a href="fiction.html">科幻</a>
+            <ul>
+                <li><a href="fiction.html">科幻</a></li>
+                <li><a href="#">幻想</a></li>
+            </ul>
+        </li>
+        <li><a href="#">文学</a></li>
+        <li><a href="#">小说</a></li>
+        <li><a href="#">童书</a></li>
+        <li><a href="#">历史</a></li>
+        <li><a href="#">管理</a></li>
+    </ul>
+</div>
+
+<div class="your_order">
+    <h3>您的订单</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-5 col-7">
+                <div class="product">
+                    <figure class="book_window">
+                        <a href="#"><img src="img/fiction/fiction_1.jpg"></a>
+                        <figcaption>三体</figcaption>
+                        <figcaption>作者:刘慈欣</figcaption>
+                        <figcaption>￥93.00</figcaption>
+                        <ul class="amount">
+                            <li class="first-item"><a href="#">-</a></li>
+                            <li class="item">1</li>
+                            <li class="last-item"><a href="#">+</a></li>
+                        </ul>
+                    </figure>
+                </div>
+                <div class="product">
+                    <figure class="book_window">
+                        <a href="#"><img src="img/fiction/fiction_3.jpg"></a>
+                        <figcaption>阿西莫夫科幻经典</figcaption>
+                        <figcaption>作者:(美)艾萨克·阿西莫夫</figcaption>
+                        <figcaption>￥117.00</figcaption>
+                        <ul class="amount">
+                            <li class="first-item"><a href="#">-</a></li>
+                            <li class="item">1</li>
+                            <li class="last-item"><a href="#">+</a></li>
+                        </ul>
+                    </figure>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-7 order_list">
+                <h5>构成订单</h5>
+                <div><p class="base">商品数量:</p><p>2</p></div>
+                <div><p class="base">总价:</p><p>210￥</p></div>
+                <div><p class="base">折扣:</p><p>0 ￥</p></div>
+                <div><p class="base">总计:</p><p>210￥ </p></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="registration">
+    <div class="container">
+        <h3>登记信息</h3>
+        <div class="form-group">
+            <label for="phone">电话</label>
+            <input class="form-control basic_data" id="phone" type="number">
+        </div>
+        <div class="form-group">
+            <label for="name">姓名</label>
+            <input class="form-control basic_data"  id="name" >
+        </div>
+        <div class="form-group">
+            <label for="email">邮箱</label>
+            <input class="form-control basic_data" id="email">
+        </div>
+        <h4>地址</h4>
+        <div class="form-group">
+            <label for="city">城市</label>
+            <input class="form-control phone" id="city">
+        </div>
+        <div class="form-group">
+            <label for="street">街道（详细地址）</label>
+            <input class="form-control"  id="street">
+        </div>
+        <div class="your_address">
+            <div class="form-group">
+                <input class="form-control address" id="house" placeholder="省">
+            </div>
+            <div class="form-group">
+                <input class="form-control address" placeholder="市">
+            </div>
+            <div class="form-group">
+                <input class="form-control address" placeholder="县">
+            </div>
+        </div>
+        <h4>付款方式</h4>
+        <form name="my_form" method="POST">
+            <input type="radio" name="question1" value="AliPay">支付宝
+            <input type="radio" name="question1" value="WechatPay">微信
+            <input type="radio" name="question1" value="bank">银联
+        </form>
+        <a class="checkout" href="#">提交订单</a>
+    </div>
+</div>
+
+
+
+
+<!---底部信息--->
+<div class="info-menu">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 flex-column column">
+                <h5>About company</h5>
+                <a href="#">About us</a>
+                <a href="#">History</a>
+                <a href="#">Delivery</a>
+                <a href="#">Store map</a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 column">
+                <h5>Contacts</h5>
+                <h6>Head office:</h6>
+                <p>SJTU, 800 Dongchuan Road, ShangHai, China</p>
+                <p>Phone: 137******** </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---后可学习样例弄图片 在mySider里面--->
+<!---
+<div class="pages">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="fiction.html">Fiction</a></li>
+        <li><a href="product_page.html">product_page</a></li>
+        <li><a href="cart.html">cart</a></li>
+        <li><a href="private_office.html">private_office</a></li>
+        <li><a href="order_history.html">order_history</a></li>
+    </ul>
+</div>
+--->
+
+</body>
+</html>

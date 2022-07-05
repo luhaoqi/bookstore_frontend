@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CH">
+<head>
+    <meta charset="UTF-8">
+    <title>购买记录</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/order_history(style).css"/>
+
+    <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<!---导航栏--->
+<nav class="navbar navbar-expand-md navbar-dark">
+    <!---左上角标题--->
+    <a class="navbar-brand" href="index.html">在线书店</a>
+    <div class="input-group">
+        <!---搜索栏--->
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <span class="input-group-btn">
+                    <button class="btn btn-secondary button_search" type="button">搜索</button>
+                </span>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <!---右上角跳转--->
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="navbar-nav mr-4">
+            <li class="nav-item">
+                <a class="nav-link" href="private_office.html">个人主页</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="cart.html">购物车</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="order_history.html">购买记录</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="Login/login.html">退出</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!---目录栏--->
+<div class="catalog">
+    <ul class="nav">
+        <li><a href="fiction.html">科幻</a>
+            <ul>
+                <li><a href="fiction.html">科幻</a></li>
+                <li><a href="#">幻想</a></li>
+            </ul>
+        </li>
+        <li><a href="#">文学</a></li>
+        <li><a href="#">小说</a></li>
+        <li><a href="#">童书</a></li>
+        <li><a href="#">历史</a></li>
+        <li><a href="#">管理</a></li>
+    </ul>
+</div>
+
+<div class="main_part">
+    <h3>个人专区</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-7 menu">
+                <ul>
+                    <li class="item"><a href="private_office.html" class="your_data">个人资料</a></li>
+                    <li class="item"><a href="order_history.html" class="history">订单历史</a></li>
+                </ul>
+            </div>
+            <div  class="col-lg-9 col-md-9 col-sm-5 col-7 data">
+                <table>
+                    <tr>
+                        <th>订单号</th>
+                        <th>订单金额</th>
+                        <th>交付时间</th>
+                        <th>状态</th>
+                    </tr>
+                    <tr><td>8705 12795</td><td>300 ￥</td><td>2022-3-4 22:03, 星期五</td><td>运输中</td></tr>
+                    <tr><td>2748 47836</td><td>500 ￥</td><td>2022-3-3 14:24, 星期四</td><td>已交付</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!---底部信息--->
+<div class="info-menu">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 flex-column column">
+                <h5>About company</h5>
+                <a href="#">About us</a>
+                <a href="#">History</a>
+                <a href="#">Delivery</a>
+                <a href="#">Store map</a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 column">
+                <h5>Contacts</h5>
+                <h6>Head office:</h6>
+                <p>SJTU, 800 Dongchuan Road, ShangHai, China</p>
+                <p>Phone: 137******** </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---后可学习样例弄图片 在mySider里面--->
+<!---
+<div class="pages">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="fiction.html">Fiction</a></li>
+        <li><a href="product_page.html">product_page</a></li>
+        <li><a href="cart.html">cart</a></li>
+        <li><a href="private_office.html">private_office</a></li>
+        <li><a href="order_history.html">order_history</a></li>
+    </ul>
+</div>
+--->
+
+</body>
+</html>
