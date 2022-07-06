@@ -1,6 +1,6 @@
 import React from 'react';
 import {Form} from 'antd';
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import 'antd/dist/antd.css';
 import '../css/my-login.css';
 import '../css/http_stackpath.bootstrapcdn.com_bootstrap_4.3.1_css_bootstrap.css'
@@ -75,7 +75,7 @@ export class LoginForm extends React.Component {
                     history.replace("/admin");
             })
             .catch(err => {
-                console.log('ERROR 登录时连接失败 ');
+                console.log('ERROR 登录时连接失败 ', err);
             });
     };
 
@@ -91,97 +91,91 @@ export class LoginForm extends React.Component {
         const errors = this.validate(this.state.username, this.state.password);
         const isEnabled = !Object.keys(errors).some((x) => errors[x]);
 
-        // const { getFieldDecorator } = this.props.form;
-        if (this.state.isAuth === 0) {
-            return (
-                <Form onSubmit={this.handleSubmit} className="login-form">
-                    <div className="my-login-page">
-                        <section className="h-100">
-                            <div className="container h-100">
-                                <div className="row justify-content-md-center h-100">
-                                    <div className="card-wrapper">
-                                        <div className="brand">
-                                            <img src={require("../assets/login/logo.jpg")} alt="logo"/>
-                                        </div>
-                                        <div className="card fat">
-                                            <div className="card-body">
-                                                <h4 className="card-title">Login</h4>
-                                                <form method="POST" className="my-login-validation" noValidate="">
-                                                    <div className="form-group">
-                                                        {/*把下面的email全部换成了username*/}
-                                                        <label htmlFor="username">username</label>
-                                                        <input id="username" type="username"
-                                                               className={errors.username ? "form-control error" : "form-control"}
-                                                               name="username"
-                                                               placeholder="Enter username"
-                                                               value={this.state.username}
-                                                               onChange={this.handleInputChange}
-                                                               required autoFocus/>
-                                                        <div className="invalid-feedback">
-                                                            Email is invalid
-                                                        </div>
+        return (
+            <Form onSubmit={this.handleSubmit} className="login-form">
+                <div className="my-login-page">
+                    <section className="h-100">
+                        <div className="container h-100">
+                            <div className="row justify-content-md-center h-100">
+                                <div className="card-wrapper">
+                                    <div className="brand">
+                                        <img src={require("../assets/login/logo.jpg")} alt="logo"/>
+                                    </div>
+                                    <div className="card fat">
+                                        <div className="card-body">
+                                            <h4 className="card-title">Login</h4>
+                                            <form method="POST" className="my-login-validation" noValidate="">
+                                                <div className="form-group">
+                                                    {/*把下面的email全部换成了username*/}
+                                                    <label htmlFor="username">Username</label>
+                                                    <input id="username" type="username"
+                                                           className={errors.username ? "form-control error" : "form-control"}
+                                                           name="username"
+                                                           placeholder="Enter username"
+                                                           value={this.state.username}
+                                                           onChange={this.handleInputChange}
+                                                           required autoFocus/>
+                                                    <div className="invalid-feedback">
+                                                        Email is invalid
                                                     </div>
+                                                </div>
 
-                                                    <div className="form-group">
-                                                        <label htmlFor="password">Password
-                                                            <Link to="/#" className="float-right">
-                                                                Forgot Password?
-                                                            </Link>
+                                                <div className="form-group">
+                                                    <label htmlFor="password">Password
+                                                        <Link to="/#" className="float-right">
+                                                            Forgot Password?
+                                                        </Link>
+                                                    </label>
+                                                    <input id="password" type="password"
+                                                           className={errors.password ? "form-control error" : "form-control"}
+                                                           name="password"
+                                                           placeholder="Enter password"
+                                                           value={this.state.password}
+                                                           onChange={this.handleInputChange}
+                                                           required data-eye=""/>
+                                                    <div className="invalid-feedback">
+                                                        Password is required
+                                                    </div>
+                                                </div>
+
+                                                <div className="form-group">
+                                                    <div className="custom-checkbox custom-control">
+                                                        <input type="checkbox" name="remember" id="remember"
+                                                               className="custom-control-input"/>
+                                                        <label htmlFor="remember" className="custom-control-label">
+                                                            Remember Me
                                                         </label>
-                                                        <input id="password" type="password"
-                                                               className={errors.password ? "form-control error" : "form-control"}
-                                                               name="password"
-                                                               placeholder="Enter password"
-                                                               value={this.state.password}
-                                                               onChange={this.handleInputChange}
-                                                               required data-eye/>
-                                                        <div className="invalid-feedback">
-                                                            Password is required
-                                                        </div>
                                                     </div>
+                                                </div>
 
-                                                    <div className="form-group">
-                                                        <div className="custom-checkbox custom-control">
-                                                            <input type="checkbox" name="remember" id="remember"
-                                                                   className="custom-control-input"/>
-                                                            <label htmlFor="remember" className="custom-control-label">
-                                                                Remember Me
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className={"form-group m-0"}>
-                                                        <button type="submit" className="btn btn-primary btn-block"
-                                                                onClick={this.handleSubmit} disabled={!isEnabled}>
-                                                            Login
-                                                        </button>
-                                                    </div>
-                                                    <div className={"mt-4 text-center"}>
-                                                        Don't have an account?
-                                                        <Link to="/home"> Create One</Link>
-                                                    </div>
-                                                </form>
-                                            </div>
+                                                <div className={"form-group m-0"}>
+                                                    <button type="submit" className="btn btn-primary btn-block"
+                                                            onClick={this.handleSubmit} disabled={!isEnabled}>
+                                                        Login
+                                                    </button>
+                                                </div>
+                                                <div className={"mt-4 text-center"}>
+                                                    Don't have an account?
+                                                    <Link to="/register"> Create One</Link>
+                                                </div>
+                                            </form>
                                         </div>
-                                        <div className={"footer"}>
-                                            Copyright &copy; 2017 &mdash; Your Company
-                                        </div>
+                                    </div>
+                                    <div className={"footer"}>
+                                        Copyright &copy; 2017 &mdash; Your Company
                                     </div>
                                 </div>
                             </div>
-                        </section>
-                        {/*<script src="../js/http_cdnjs.cloudflare.com_ajax_libs_popper.js_1.14.7_umd_popper.js"/>*/}
-                        {/*<script src="../js/http_code.jquery.com_jquery-3.3.1.slim.js"/>*/}
-                        {/*<script src="../js/http_stackpath.bootstrapcdn.com_bootstrap_4.3.1_js_bootstrap.js"/>*/}
-                        {/*<script src="../js/my-login.js"/>*/}
-                    </div>
-                </Form>
-            )
-        } else if (this.state.isAuth === 1) {
-            return (<Redirect to={"/home"}/>)
-        } else if (this.state.isAuth === 2) {
-            return (<Redirect to={"/admin"}/>)
-        }
+                        </div>
+                    </section>
+                    {/*<script src="../js/http_cdnjs.cloudflare.com_ajax_libs_popper.js_1.14.7_umd_popper.js"/>*/}
+                    {/*<script src="../js/http_code.jquery.com_jquery-3.3.1.slim.js"/>*/}
+                    {/*<script src="../js/http_stackpath.bootstrapcdn.com_bootstrap_4.3.1_js_bootstrap.js"/>*/}
+                    {/*<script src="../js/my-login.js"/>*/}
+                </div>
+            </Form>
+        )
+
     }
 }
 

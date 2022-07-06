@@ -4,6 +4,7 @@ import {history} from '../utils/history';
 import {message} from 'antd';
 import localStorage from "localStorage";
 
+//login logout 为老师的例子
 
 export const login = (data) => {
     const url = `${config.apiUrl}/login`;
@@ -59,6 +60,49 @@ export const authUser = (name, password) => {
             });
     });
 };
+
+//注册用户
+export const registerUser = (name, password , email, tel) => {
+    return new Promise(function (resolve, reject) {
+        fetch(
+            `${config.backendUrl}/user/add?name=${name}&password=${password}&email=${email}&tel=${tel}`,
+            {
+                method: 'POST',
+            },
+        )
+            .then(response => response.json())
+            .then(result => {
+                console.log('User Service(register): SUCCESS IN register User :', result);
+                resolve(result);
+            })
+            .catch(error => {
+                console.log('User Service(register): ERROR IN register User :', error);
+                reject(error);
+            });
+    });
+};
+
+//查询用户是否存在
+export const checkUserExist = (username) => {
+    return new Promise(function (resolve, reject) {
+        fetch(
+            `${config.backendUrl}/user/exist?username=${username}`,
+            {
+                method: 'Get',
+            },
+        )
+            .then(response => response.json())
+            .then(result => {
+                console.log('User Service: SUCCESS IN checkUserExist :', result);
+                resolve(result);
+            })
+            .catch(error => {
+                console.log('User Service: ERROR IN checkUserExist :', error);
+                reject(error);
+            });
+    });
+};
+
 //获取用户所有订单
 export const getAllOrder = (uid) => {
     return new Promise(function (resolve, reject) {

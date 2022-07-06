@@ -1,6 +1,5 @@
 import React from 'react';
-import DocumentTitle from 'react-document-title'
-import {Router, Route, Switch, Redirect} from 'react-router-dom';
+import {Redirect, Router, Switch} from 'react-router-dom';
 import PrivateRoute from './PrivateRoute'
 import LoginRoute from './LoginRoute'
 import HomeView from "./view/HomeView";
@@ -11,12 +10,11 @@ import CartView from "./view/CartView";
 import FictionView from "./view/FictionView";
 import PersonalPageView from "./view/PersonalPageView";
 import OrderHistoryView from "./view/OrderHistoryView";
-import localStorage from "localStorage";
-import BookDetail from "./components/BookDetail";
 import AdminBookView from "./view/AdminBookView";
 import AdminUserView from "./view/AdminUserView";
 import AdminOrderListView from "./view/AdminOrderListView";
 import UserOrderView from "./view/UserOrderView";
+import RegisterView from "./view/RegisterView";
 
 class BasicRoute extends React.Component {
 
@@ -34,7 +32,8 @@ class BasicRoute extends React.Component {
             <Router history={history}>
                 <Switch>
                     <PrivateRoute exact path="/" component={HomeView}/>
-                    <LoginRoute exact path="/login" component={LoginView} />
+                    <LoginRoute exact path="/login" component={LoginView}/>
+                    <LoginRoute exact path="/register" component={RegisterView}/>
                     {/*<PrivateRoute exact path="/bookDetails" component={BookView} />*/}
                     {/*<Redirect from="/*" to="/" />*/}
                     {/*<PrivateRoute exact path="/" component={HomeView}/>*/}

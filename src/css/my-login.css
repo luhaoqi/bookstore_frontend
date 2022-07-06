@@ -1,3 +1,7 @@
+.MyRedFont{
+	color: red;
+}
+
 .form-control.error {
 	border: 1px solid red;
 }
