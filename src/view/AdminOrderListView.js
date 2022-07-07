@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import '../css/Admin.css';
 import {Link, withRouter} from "react-router-dom";
-import {getBooks, editBook, deleteBook, addBook} from "../services/bookService"
 import {AdminHeader} from "../components/AdminHeader";
 import {Button} from "antd";
 import localStorage from "localStorage";

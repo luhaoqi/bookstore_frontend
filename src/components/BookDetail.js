@@ -1,9 +1,7 @@
 import React from 'react';
-import {Descriptions, Button} from 'antd';
+import {Button} from 'antd';
 import {getBook} from "../services/bookService";
-import {addBookToCart, deleteBookFromCart} from "../services/cartService"
-import {withRouter} from "react-router-dom";
-import {HeaderInfo} from "./HeaderInfo";
+import {addBookToCart} from "../services/cartService"
 import localStorage from "localStorage";
 
 export class BookDetail extends React.Component {
@@ -54,17 +52,23 @@ export class BookDetail extends React.Component {
                             </div>
                             <div className="col-lg-3 col-md-3 col-sm-5 col-5 book-info">
                                 <div>
-                                    <p>作者:</p><a href="#" className="info-book">{this.state.book.author}</a>
-                                    <p>出版社:</p><a href="#" className="info-book">中国青年出版社</a>
+
                                 </div>
                                 <div className="price_and_buy">
-                                    <p className="price">￥ {this.state.book.price}</p>
-                                    <Button className="buy" onClick={this.handleAddToCart}>加入购物车</Button>
+                                    <p>作者:{this.state.book.author}</p>
+                                    <br/>
+                                    <p className="price">￥ {this.state.book.price / 100.0}</p>
+                                    <Button className="buy" disabled={this.state.book.stock === 0}
+                                            onClick={this.handleAddToCart}>
+                                        加入购物车
+                                    </Button>
                                 </div>
                                 <p>开 本：16开</p>
                                 <p>纸 张：胶版纸</p>
                                 <p>包 装：平装-胶订</p>
                                 <p>国际标准书号ISBN：{this.state.book.isbn}</p>
+                                <p>销量：{this.state.book.sales}</p>
+                                <p>库存：{this.state.book.stock}</p>
                             </div>
                             <div className="col-lg-6 col-md-6 col-sm-12 col-7">
                                 <h5>摘要</h5>

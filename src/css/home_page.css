@@ -154,6 +154,7 @@ figure img{
     white-space: normal !important;
     font-weight: bold;
     text-align: left !important;
+    font-size: 18px;
 }
 
 .new::-webkit-scrollbar {

@@ -19,35 +19,9 @@ export class BookCarousel extends React.Component {
 
     render() {
         const requireContext = require.context("../assets/carousel", true, /^\.\/.*\.jpg$/);
-        const carouselProp = {
-            showStatus: false,
-            useKeyboardArrows: true,
-            infiniteLoop: true,
-            autoPlay: true,
-            stopOnHover: true,
-            emulateTouch: true,
-            transitionTime: 400,
-            showArrows: true,
-            autoplaySpeed: 8000,
-            renderArrowPrev: (clickHandler, hasPrev, label) => {
-                return (
-                    <span className="arrow-left" onClick={clickHandler}>
-                        <span className="icon-keyboard_arrow_left"/>
-                    </span>
-                )
-            },
-            renderArrowNext: (clickHandler, hasNext, label) => {
-                return (
-                    <span className="arrow-right" onClick={clickHandler}>
-                        <span className="icon-keyboard_arrow_right"/>
-                    </span>
-                )
-            },
-        }
-
 
         return (
-            <Carousel {...carouselProp} >
+            <Carousel autoplay >
                 {this.createContent(requireContext)}
             </Carousel>
         )
