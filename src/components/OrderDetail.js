@@ -1,10 +1,9 @@
 import React from 'react';
-import {Button} from 'antd';
-import {addBookToCart, deleteBookFromCart, getAllCartItems} from "../services/cartService";
 import localStorage from "localStorage";
 import {Link} from "react-router-dom";
+import {getOrderItemByOid} from "../services/orderService";
 
-export class CartDetail extends React.Component {
+export class OrderDetail extends React.Component {
 
     constructor(props) {
         super(props);
@@ -13,14 +12,12 @@ export class CartDetail extends React.Component {
             totNum: 0,
             totPrice: 0
         }
-        this.handleAddToCart = this.handleAddToCart.bind(this);
-        this.handleDeleteFromCart = this.handleDeleteFromCart.bind(this);
     }
 
     getBookInfo() {
-        getAllCartItems(localStorage["uid"])
+        getOrderItemByOid(this.props.oid)
             .then(res => {
-                console.log("获取购物车信息成功 ", res);
+                console.log("获取订单信息成功 ", res);
                 this.setState({cartItems: res});
                 let num = 0, price = 0;
                 for (let i = 0; i < res.length; i++) {
@@ -31,7 +28,8 @@ export class CartDetail extends React.Component {
                 this.setState({totNum: num, totPrice: price});
             })
             .catch(err => {
-                console.log('ERROR 获取购物车信息失败 ');
+                console.log('ERROR 获取订单信息失败 ', err);
+                alert('ERROR 获取订单信息失败 ', err)
             });
     }
 
@@ -54,52 +52,22 @@ export class CartDetail extends React.Component {
                         <img src={require(`../assets/NewBooks/newbook_${item.book.bid}.jpg`)} alt={item.book.name}/>
                     </Link>
                     <figcaption>{item.book.name}</figcaption>
-                    <figcaption>作者:{item.book.author}</figcaption>
+                    <figcaption>作者: {item.book.author}</figcaption>
                     <figcaption>￥{item.book.price / 100.0}</figcaption>
-                    <ul className="amount">
-                        <Button className="first-item"
-                                onClick={(e) => {
-                                    this.handleDeleteFromCart(item.book.bid)
-                                }}> - </Button>
-                        <li className="item">{item.num}</li>
-                        <Button className="last-item" disabled={item.book.stock === item.num}
-                                onClick={(e) => {
-                                    this.handleAddToCart(item.book.bid)
-                                }}> + </Button>
-                    </ul>
+                    <figcaption>数量: {item.num}</figcaption>
+                    <figcaption>购买单价:￥{item.price / 100.0}</figcaption>
+                    <figcaption>小计:￥{item.num * item.price / 100.0}</figcaption>
                 </figure>
             </div>
         );
     }
 
-    handleAddToCart(bid) {
-        addBookToCart(localStorage["uid"], bid)
-            .then(res => {
-                console.log("增加书籍成功 ", res);
-                this.getBookInfo();
-            })
-            .catch(err => {
-                console.log('ERROR 增加书籍失败 ');
-            });
-    }
-
-    handleDeleteFromCart(bid) {
-        deleteBookFromCart(localStorage["uid"], bid)
-            .then(res => {
-                console.log("删除一本书籍成功 ", res);
-                this.getBookInfo();
-            })
-            .catch(err => {
-                console.log('ERROR 删除一本书籍失败 ');
-            });
-    }
-
 
     render() {
-
+        console.log("oid", this.props.oid);
         return (
             <div className="your_order">
-                <h3>您的购物车</h3>
+                <h3>您的订单详情</h3>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-9 col-md-9 col-sm-5 col-7">

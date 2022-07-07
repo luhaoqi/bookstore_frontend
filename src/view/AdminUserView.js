@@ -1,11 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import '../css/Admin.css';
-import {Link, withRouter} from "react-router-dom";
-import {getBooks, editBook, deleteBook, addBook} from "../services/bookService"
+import {withRouter} from "react-router-dom";
+import {editBook} from "../services/bookService"
 import {AdminHeader} from "../components/AdminHeader";
 import {Button} from "antd";
-import localStorage from "localStorage";
 import {getAllUser, updateUserState} from "../services/userService";
 
 const headers = ["Uid", "username", "State", "Email", "tel", "Address"];
@@ -169,6 +167,7 @@ class AdminUserView extends React.Component {
                 <tbody onDoubleClick={this.showEditor}>
                 {this.renderSearch()}
                 {this.state.data.map(function (row, rowidx) {
+                    // console.log(row);
                     return (
                         <tr key={rowidx}>{
                             row.map(function (cell, idx) {
@@ -181,7 +180,7 @@ class AdminUserView extends React.Component {
                                         </form>
                                     );
                                 }
-                                if (headers[idx] === "State"){
+                                if (headers[idx] === "State") {
                                     if (cell === 0) content = "封禁用户";
                                     if (cell === 1) content = "普通用户";
                                     if (cell === 2) content = "管理员";
@@ -190,10 +189,10 @@ class AdminUserView extends React.Component {
                             }, this)}
                             {
                                 <td>
-                                    <Button onClick={() => this.handleSetState(rowidx, 0)}>
+                                    <Button onClick={() => this.handleSetState(rowidx, 0)} disabled={row[2] === 2}>
                                         封禁
                                     </Button>
-                                    <Button onClick={() => this.handleSetState(rowidx, 1)}>
+                                    <Button onClick={() => this.handleSetState(rowidx, 1)} disabled={row[2] === 2}>
                                         解封
                                     </Button>
                                 </td>

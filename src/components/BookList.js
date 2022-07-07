@@ -49,7 +49,8 @@ export class BookList extends React.Component {
             textAlign: 'center',
         };
         for (let i = 0; i < this.state.books.length; i++) {
-            let img = require(`../assets/NewBooks/newbook_${this.state.books[i].image}.jpg`);
+            // let img = require(`../assets/NewBooks/newbook_${this.state.books[i].image}.jpg`);
+            if (this.state.books[i].name.toString().toLowerCase().indexOf(this.props.filter) === -1) continue;
             result.push(
                 // <figure className="book_window">
                 <Card.Grid style={gridStyle} className="book_window">
@@ -59,7 +60,8 @@ export class BookList extends React.Component {
                     }
                     }>
                         {/*<img src={img} alt="book"/>*/}
-                        <Image src={img} preview={false}/>
+                        {/*<Image src={img} preview={false}/>*/}
+                        <Image src={this.state.books[i].image} preview={false}/>
                     </Link>
                     <figcaption>{"书名：" + this.state.books[i].name}</figcaption>
                     <figcaption>{"作者：" + this.state.books[i].author}</figcaption>

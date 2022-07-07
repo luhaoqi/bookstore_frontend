@@ -11,11 +11,12 @@ import {BookComments} from "../components/BookComments";
 import {Bottom} from "../components/Bottom";
 import {CartDetail} from "../components/CartDetail";
 import {UserInfoRegistrate} from "../components/UserInfoRegistrate";
+import {OrderDetail} from "../components/OrderDetail";
 
 
 const { Header, Content, Footer } = Layout;
 
-class CartView extends React.Component{
+class OrderDetailView extends React.Component{
 
 
     render(){
@@ -23,8 +24,7 @@ class CartView extends React.Component{
             <Layout className="cart">
                 <HeaderInfo/>
 
-                <CartDetail/>
-                <UserInfoRegistrate/>
+                <OrderDetail oid={this.props.location.state.oid}/>
 
                 <Bottom/>
             </Layout>
@@ -32,4 +32,4 @@ class CartView extends React.Component{
     }
 }
 
-export default withRouter(CartView);
+export default withRouter(OrderDetailView);

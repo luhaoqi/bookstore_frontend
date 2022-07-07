@@ -5,6 +5,8 @@ import {getAllOrder} from "../services/userService";
 import localStorage from "localStorage";
 
 export class OrderHistoryInfo extends React.Component {
+    headers = ["订单号", "订单金额", "下单时间", "收件人", "收件地址", "联系电话"];
+
     constructor(props) {
         super(props);
         this.state = {
@@ -34,12 +36,22 @@ export class OrderHistoryInfo extends React.Component {
         if (!Order) return;
         return Order.map((order) =>
             <tr>
-                <td>{order.orderListId}</td>
-                <td>{order.price} ￥</td>
+                <Link to={{
+                    pathname: "/orderDetail",
+                    state: {oid: order.orderListId}
+                }
+                }>
+                    <td>{order.orderListId}</td>
+                </Link>
+                <td>{order.price / 100.0} ￥</td>
                 <td>{order.time}</td>
-                <td>处理中</td>
+                <td>{order.name}</td>
+                <td>{order.address}</td>
+                <td>{order.tel}</td>
+
             </tr>
         )
+
     }
 
 
@@ -48,7 +60,7 @@ export class OrderHistoryInfo extends React.Component {
         return (
             <div className={"OrderHistory"}>
                 <div className="main_part">
-                    <h3>个人专区</h3>
+                    <h3>购买记录</h3>
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-3 col-md-3 col-sm-12 col-7 menu">
@@ -67,12 +79,11 @@ export class OrderHistoryInfo extends React.Component {
                             </div>
                             <div className="col-lg-9 col-md-9 col-sm-5 col-7 data">
                                 <table>
-                                    <tr>
-                                        <th>订单号</th>
-                                        <th>订单金额</th>
-                                        <th>下单时间</th>
-                                        <th>状态</th>
-                                    </tr>
+                                    <tr>{
+                                        this.headers.map(function (title, idx) {
+                                            return <th key={idx}>{title}</th>;
+                                        }, this)
+                                    }</tr>
                                     {this.getOrderelem(this.state.order)}
                                 </table>
                             </div>

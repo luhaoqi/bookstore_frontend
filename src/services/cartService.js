@@ -1,9 +1,4 @@
 import config from '../utils/config.js';
-import {postRequest} from "../utils/ajax";
-import {history} from '../utils/history';
-import {message} from 'antd';
-import localStorage from "localStorage";
-
 
 
 //获取购物车所有书
@@ -73,11 +68,11 @@ export const deleteBookFromCart = (uid, bid) => {
     });
 };
 
-export const purchaseAll = (uid) => {
-    console.log(`${config.backendUrl}/order/purchase?uid=${uid}`);
+export const purchaseAll = (uid, tel, address, name) => {
+    console.log(`{config.backendUrl}/order/purchase?uid=${uid}&tel=${tel}&address=${address}&name=${name}`);
     return new Promise(function (resolve, reject) {
         fetch(
-            `${config.backendUrl}/order/purchase?uid=${uid}`,
+            `${config.backendUrl}/order/purchase?uid=${uid}&tel=${tel}&address=${address}&name=${name}`,
             {
                 method: 'POST',
             },

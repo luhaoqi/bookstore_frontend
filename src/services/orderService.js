@@ -17,11 +17,11 @@ export const getAllOrderItem = () => {
         )
             .then(response => response.json())
             .then(result => {
-                console.log('User Service: SUCCESS IN getAllOrderItem :', result);
+                console.log('Order Service: SUCCESS IN getAllOrderItem :', result);
                 resolve(result);
             })
             .catch(error => {
-                console.log('User Service: ERROR IN getAllOrderItem :', error);
+                console.log('Order Service: ERROR IN getAllOrderItem :', error);
                 reject(error);
             });
     });
@@ -39,11 +39,33 @@ export const getOrderItemByUid = (uid) => {
         )
             .then(response => response.json())
             .then(result => {
-                console.log('User Service: SUCCESS IN getOrderItemByUid :', result);
+                console.log('Order Service: SUCCESS IN getOrderItemByUid :', result);
                 resolve(result);
             })
             .catch(error => {
-                console.log('User Service: ERROR IN getOrderItemByUid :', error);
+                console.log('Order Service: ERROR IN getOrderItemByUid :', error);
+                reject(error);
+            });
+    });
+};
+
+//获取指定 oid 所有订单item
+export const getOrderItemByOid = (oid) => {
+    return new Promise(function (resolve, reject) {
+        console.log(`${config.backendUrl}/orderItem/getByOid?oid=${oid}`);
+        fetch(
+            `${config.backendUrl}/orderItem/getByOid?oid=${oid}`,
+            {
+                method: 'POST',
+            },
+        )
+            .then(response => response.json())
+            .then(result => {
+                console.log('Order Service: SUCCESS IN getOrderItemByOid :', result);
+                resolve(result);
+            })
+            .catch(error => {
+                console.log('Order Service: ERROR IN getOrderItemByOid :', error);
                 reject(error);
             });
     });

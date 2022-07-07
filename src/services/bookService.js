@@ -55,11 +55,11 @@ export const getBook = (bid) => {
     });
 }
 
-export const editBook = (bid, name, author, isbn, stock) => {
+export const editBook = (bid, name, author, isbn, sales, stock) => {
     return new Promise(function (resolve, reject) {
-        console.log(`${config.backendUrl}/book/edit?bid=${bid}&name=${name}&author=${author}&isbn=${isbn}&stock=${stock}`);
+        console.log(`${config.backendUrl}/book/edit?bid=${bid}&name=${name}&author=${author}&isbn=${isbn}&sales=${sales}&stock=${stock}`);
         fetch(
-            `${config.backendUrl}/book/edit?bid=${bid}&name=${name}&author=${author}&isbn=${isbn}&stock=${stock}`,
+            `${config.backendUrl}/book/edit?bid=${bid}&name=${name}&author=${author}&isbn=${isbn}&sales=${sales}&stock=${stock}`,
             {
                 method: 'POST',
             },

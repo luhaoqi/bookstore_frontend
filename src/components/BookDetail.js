@@ -8,6 +8,9 @@ export class BookDetail extends React.Component {
 
     constructor(props) {
         super(props);
+        // console.log("props:",props);
+        // console.log("this.props:",this.props);
+        // console.log("this.props.bid:",this.props.bid);
         this.state = {
             book: {}
         }
@@ -39,7 +42,8 @@ export class BookDetail extends React.Component {
 
     render() {
         const {bid} = this.props;
-        const img = require(`../assets/NewBooks/newbook_${bid}.jpg`);
+        // const img = require(`../assets/NewBooks/newbook_${bid}.jpg`);
+        const img = this.state.book.image;
         return (
             <div>
                 <div className="main_part">

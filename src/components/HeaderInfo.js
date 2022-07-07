@@ -1,19 +1,16 @@
 import React from 'react';
-import {Row, Col} from 'antd';
 import '../css/home_page.css'
 import '../css/bootstrap.min.css'
 import {Link} from 'react-router-dom';
-import logo from '../assets/logo.svg';
-import logoFont from '../assets/logo-name.svg';
-import {UserAvatar} from "./UserAvatar";
-import {SearchBar} from "../components/SearchBar";
-import {history} from "../utils/history";
 import localStorage from "localStorage";
 
 export class HeaderInfo extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            search: "",
+        }
         this.handlelogout = this.handlelogout.bind(this);
     }
 
@@ -24,9 +21,10 @@ export class HeaderInfo extends React.Component {
     }
 
     render() {
+        console.log("HeaderInfo:", this.state);
         // console.log(localStorage["uid"]);
         // const user = JSON.parse(localStorage.getItem("user"));
-
+        const {search} = this.state;
         return (
             <div>
                 {/*<!---导航栏--->*/}
@@ -35,9 +33,23 @@ export class HeaderInfo extends React.Component {
                     <Link className="navbar-brand" to="/">在线书店</Link>
                     <div className="input-group">
                         {/*<!---搜索栏--->*/}
-                        <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+                        <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                               value={search}
+                               onChange={(e) => {
+                                   this.setState({
+                                       search: e.target.value
+                                   })
+                               }}/>
                         <span className="input-group-btn">
-                            <button className="btn btn-secondary button_search" type="button">搜索</button>
+                            <button className="btn btn-secondary button_search" type="button"
+                                    onClick={(e) => {
+                                        this.setState({
+                                            search: "",
+                                        })
+                                        this.props.callback(search);
+                                    }}>
+                                搜索
+                            </button>
                         </span>
                     </div>
                     <button className="navbar-toggler" type="button" data-toggle="collapse"

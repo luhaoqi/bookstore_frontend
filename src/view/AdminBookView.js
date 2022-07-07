@@ -1,13 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import '../css/Admin.css';
-import {Link, withRouter} from "react-router-dom";
-import {getBooks, editBook, deleteBook, addBook} from "../services/bookService"
+import {withRouter} from "react-router-dom";
+import {addBook, deleteBook, editBook, getBooks} from "../services/bookService"
 import {AdminHeader} from "../components/AdminHeader";
 import {Button} from "antd";
-import localStorage from "localStorage";
 
-const headers = ["Bid", "Book", "Author", "Image", "Isbn", "Stock"];
+const headers = ["Bid", "Book", "Author", "Image", "Isbn", "Sales", "Stock"];
 
 //不要再搜索状态下修改
 class AdminBookView extends React.Component {
@@ -33,7 +31,7 @@ class AdminBookView extends React.Component {
                 console.log("获取书籍~", res);
                 let data = [];
                 for (let i = 0; i < res.length; i++)
-                    data.push([res[i].bid, res[i].name, res[i].author, res[i].image, res[i].isbn, res[i].stock]);
+                    data.push([res[i].bid, res[i].name, res[i].author, res[i].image, res[i].isbn, res[i].sales, res[i].stock]);
                 this.setState({data: data});
             })
             .catch(err => {
@@ -87,7 +85,8 @@ class AdminBookView extends React.Component {
         let data = this.state.data.slice();
         data[this.state.edit.row][this.state.edit.cell] = input.value;
         let tmp = data[this.state.edit.row];
-        editBook(tmp[0], tmp[1], tmp[2], tmp[3], tmp[4]);
+        console.log(tmp);
+        editBook(tmp[0], tmp[1], tmp[2], tmp[4], tmp[5],tmp[6]);
         this.setState({
             edit: null,
             data: data,
@@ -117,7 +116,16 @@ class AdminBookView extends React.Component {
                 let d = this.state.data;
                 d.push([res, this.state.bookname, this.state.author, this.state.image_, this.state.isbn, this.state.stock]);//image是image_
                 console.log(d);
-                this.setState({data: d, bookname: "", author: "", image_: "", isbn: "", stock: "", description: "",price:""})
+                this.setState({
+                    data: d,
+                    bookname: "",
+                    author: "",
+                    image_: "",
+                    isbn: "",
+                    stock: "",
+                    description: "",
+                    price: ""
+                })
             })
             .catch(err => {
                 console.log('增加书籍失败 ', err);
@@ -239,7 +247,8 @@ class AdminBookView extends React.Component {
                                     );
                                 }
                                 if (headers[idx] === "Image") {
-                                    let img = require(`../assets/NewBooks/newbook_${parseInt(cell)}.jpg`);
+                                    // let img = require(`../assets/NewBooks/newbook_${parseInt(cell)}.jpg`);
+                                    let img = cell;
                                     return (
                                         <td>
                                             <figure className="book_window">
