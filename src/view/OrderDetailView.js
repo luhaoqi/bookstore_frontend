@@ -18,7 +18,6 @@ const { Header, Content, Footer } = Layout;
 
 class OrderDetailView extends React.Component{
 
-
     render(){
         return(
             <Layout className="cart">

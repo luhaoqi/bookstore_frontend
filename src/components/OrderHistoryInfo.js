@@ -34,29 +34,42 @@ export class OrderHistoryInfo extends React.Component {
 
     getOrderelem = (Order) => {
         if (!Order) return;
-        return Order.map((order) =>
-            <tr>
-                <Link to={{
-                    pathname: "/orderDetail",
-                    state: {oid: order.orderListId}
+        let res = [];
+        for (let i = 0; i < Order.length; i++) {
+
+            let flag = false;
+            for (let j = 0; j < Order[i].bookName.length; j++)
+                if (Order[i].bookName[j].toString().toLowerCase().indexOf(this.props.book) > -1) {
+                    flag = true;
+                    break;
                 }
-                }>
-                    <td>{order.orderListId}</td>
-                </Link>
-                <td>{order.price / 100.0} ￥</td>
-                <td>{order.time}</td>
-                <td>{order.name}</td>
-                <td>{order.address}</td>
-                <td>{order.tel}</td>
+            let order = Order[i].orderList;
+            if (flag) {
+                res.push(
+                    <tr>
+                        <Link to={{
+                            pathname: "/orderDetail",
+                            state: {oid: order.orderListId}
+                        }
+                        }>
+                            <td>{order.orderListId}</td>
+                        </Link>
+                        <td>{order.price / 100.0} ￥</td>
+                        <td>{order.time}</td>
+                        <td>{order.name}</td>
+                        <td>{order.address}</td>
+                        <td>{order.tel}</td>
 
-            </tr>
-        )
-
+                    </tr>
+                )
+            }
+        }
+        return res;
     }
 
 
     render() {
-
+        console.log("key: ",this.props.book);
         return (
             <div className={"OrderHistory"}>
                 <div className="main_part">

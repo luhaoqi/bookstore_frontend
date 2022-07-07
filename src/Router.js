@@ -49,7 +49,7 @@ class BasicRoute extends React.Component {
                     <PrivateRoute exact path="/cart" component={CartView}/>
                     <PrivateRoute exact path="/fiction" component={FictionView}/>
                     <PrivateRoute exact path="/personalPage" component={PersonalPageView}/>
-                    <PrivateRoute exact path="/orderHistory" component={OrderHistoryView}/>
+                    <PrivateRoute exact path="/orderHistory/:key?" component={OrderHistoryView}/>
                     <PrivateRoute exact path="/orderDetail" component={OrderDetailView}/>
                     <Redirect from="/*" to="/"/>
                 </Switch>
