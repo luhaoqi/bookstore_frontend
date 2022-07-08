@@ -1,24 +1,26 @@
 import React from 'react';
 import '../css/Admin.css';
-import {Link, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import {AdminHeader} from "../components/AdminHeader";
 import {getAllOrderList} from "../services/orderService";
-import {Button, DatePicker} from 'antd';
-import {history} from "../utils/history";
+import {DatePicker} from 'antd';
+import {Book} from "../components/Book";
 
 const {RangePicker} = DatePicker;
 
-const headers = ["OrderListId", "TotPrice", "Time", "Uid", "Username"];
+const headers = ["BookName", "Sales", "TotPrice"];
+
+let allBook = [], BookInfo = [];
 
 //不要再搜索状态下修改
-class AdminOrderListView extends React.Component {
+class AdminBookStatisticView extends React.Component {
 
-    allBooks = [];
 
     constructor(props) {
         super(props);
         this.state = {
             data: [],
+            res: [],
             sortby: null,
             descending: false,
             edit: null, // [row index, cell index],
@@ -26,21 +28,12 @@ class AdminOrderListView extends React.Component {
             preSearchData: null,
             startTime: null,
             endTime: null,
-            bookinput: "",
         };
         getAllOrderList()
             .then(res => {
                 console.log("获取订单：", res);
-                let data = [];
-                for (let i = 0; i < res.length; i++) {
-                    const t = res[i].orderList;
-                    data.push([t.orderListId, t.price, t.time, res[i].uid, res[i].username]);
-                    this.allBooks.push(res[i].bookName);
-                    // data.push([res[i].orderListId, res[i].price, res[i].time, res[i].bookname,
-                    //     res[i].bookprice, res[i].uid, res[i].username]);
-                }
-
-                this.setState({data: data});
+                BookInfo = res;
+                this.filterAllBook();
             })
             .catch(err => {
                 console.log('获取订单失败 ', err);
@@ -51,6 +44,7 @@ class AdminOrderListView extends React.Component {
     sort = (e) => {
         let column = e.target.cellIndex;
         let data = this.state.data.slice();
+        // let data = allBook.slice();
         let descending = this.state.sortby === column && !this.state.descending;
         data.sort(function (a, b) {
             return descending
@@ -95,6 +89,7 @@ class AdminOrderListView extends React.Component {
             this.preSearchData = null;
         } else {
             this.preSearchData = this.state.data;
+            // this.preSearchData = allBook;
             this.setState({
                 search: true,
             });
@@ -129,27 +124,11 @@ class AdminOrderListView extends React.Component {
                                          {
                                              startTime: v[0].toDate(),
                                              endTime: v[1].toDate(),
+                                         }, ()=>{
+                                             this.filterAllBook();
                                          }
                                      )
                                  }}/>
-                </div>
-                <br/>
-                <div>
-                    <input value={this.state.bookinput}
-                           onChange={(e) => {
-                               this.setState(
-                                   {bookinput: e.target.value}
-                               )
-                           }}/>
-                    <Button type="primary"
-                            onClick={() => {
-                                history.push(`/admin_order/${this.state.bookinput}`);
-                                // this.setState(
-                                //     {booksearch: this.state.bookinput}
-                                // )
-                            }}>
-                        书名搜索
-                    </Button>
                 </div>
                 {this.renderTable()}
             </div>
@@ -198,41 +177,46 @@ class AdminOrderListView extends React.Component {
             if (headers[idx] === "TotPrice" || headers[idx] === "BookPrice") {
                 content = parseFloat(content) / 100.0;
             }
-            if (headers[idx] === "OrderListId")
-                res.push(
-                    <Link to={{
-                        pathname: "/orderDetail",
-                        state: {oid: content}
-                    }
-                    }>
-                        <td key={idx} data-row={rowidx} text-align="center">
-                            {content}
-                        </td>
-                    </Link>
-                );
-            else res.push(<td key={idx} data-row={rowidx} text-align="center">{content} </td>);
+            res.push(<td key={idx} data-row={rowidx} text-align="center">{content} </td>);
         }
         return res;
     }
 
-    renderTablecontent = (data) => {
-        let res = [];
-        for (let rowidx = 0; rowidx < data.length; rowidx++) {
-            const row = data[rowidx];
-            const {startTime, endTime} = this.state;
-            let t = new Date(row[2]);
+    filterAllBook = () =>
+    {
+        allBook = [];
+        const {startTime, endTime} = this.state;
+        let res = BookInfo;
+
+        console.log(startTime, endTime);
+        for (let i = 0; i < res.length; i++) {
+            let t = new Date(res[i].orderList.time);
             if (startTime && endTime) {
                 if (!(startTime <= t && endTime >= t)) continue;
             }
+            const name = res[i].bookName, sale = res[i].bookSales, price = res[i].bookPrice;
+            // console.log(t, name, sale, price);
+            for (let j = 0; j < name.length; j++) {
+                let flag = false;
+                for (let k = 0; k < allBook.length; k++)
+                    if (allBook[k][0] === name[j]) {
+                        flag = true;
+                        allBook[k][1] += sale[j];
+                        allBook[k][2] += price[j] * sale[j];
+                    }
+                if (flag) continue;
+                allBook.push([name[j], sale[j], sale[j] * price[j]]);
+            }
+        }
+        console.log("allBook:", allBook);
+        this.setState({data:allBook});
+    }
 
-            let flag = false;
-            for (let j = 0; j < this.allBooks[rowidx].length; j++)
-                if (this.allBooks[rowidx][j].toString().toLowerCase().indexOf(this.props.match.params.key ?? "") > -1) {
-                    flag = true;
-                    break;
-                }
-            if (!flag) continue;
-
+    renderTablecontent = () => {
+        const data = this.state.data;
+        let res = [];
+        for (let rowidx = 0; rowidx < data.length; rowidx++) {
+            const row = data[rowidx];
             res.push(
                 <tr key={rowidx}>
                     {this.rendereachrow(row, rowidx)}
@@ -256,7 +240,7 @@ class AdminOrderListView extends React.Component {
                 </thead>
                 <tbody onDoubleClick={this.showEditor}>
                 {this.renderSearch()}
-                {this.renderTablecontent(this.state.data)}
+                {this.renderTablecontent()}
 
                 </tbody>
             </table>
@@ -264,4 +248,4 @@ class AdminOrderListView extends React.Component {
     }
 }
 
-export default withRouter(AdminOrderListView);
+export default withRouter(AdminBookStatisticView);

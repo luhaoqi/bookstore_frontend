@@ -27,6 +27,13 @@ export class AdminHeader extends React.Component {
                     <li><Link to="/admin_user">用户管理</Link></li>
                     <li><Link to="/admin_book">书籍管理</Link></li>
                     <li><Link to="/admin_order">订单管理</Link></li>
+                    <li className="blackfont">
+                        统计
+                        <ul>
+                            <li><Link to="/admin_book_statistic">书籍统计</Link></li>
+                            <li><Link to="/admin_user_statistic">用户统计</Link></li>
+                        </ul>
+                    </li>
                     <li className="nav-item">
                         <Link className="nav-link " to={{pathname: '/login'}}
                               onClick={this.handlelogout}>

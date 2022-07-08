@@ -16,6 +16,8 @@ import AdminOrderListView from "./view/AdminOrderListView";
 import UserOrderView from "./view/UserOrderView";
 import RegisterView from "./view/RegisterView";
 import OrderDetailView from "./view/OrderDetailView";
+import AdminBookStatisticView from "./view/AdminBookStatisticView";
+import AdminUserStatisticView from "./view/AdminUserStatisticView";
 
 class BasicRoute extends React.Component {
 
@@ -42,7 +44,7 @@ class BasicRoute extends React.Component {
                     <PrivateRoute exact path="/admin" component={AdminUserView}/>
                     <PrivateRoute exact path="/admin_book" component={AdminBookView}/>
                     <PrivateRoute exact path="/admin_user" component={AdminUserView}/>
-                    <PrivateRoute exact path="/admin_order" component={AdminOrderListView}/>
+                    <PrivateRoute exact path="/admin_order/:key?" component={AdminOrderListView}/>
                     <PrivateRoute exact path="/userOrder" component={UserOrderView}/>
                     <PrivateRoute exact path="/login" component={LoginView}/>
                     <PrivateRoute exact path="/bookDetails" component={BookView}/>
@@ -51,6 +53,8 @@ class BasicRoute extends React.Component {
                     <PrivateRoute exact path="/personalPage" component={PersonalPageView}/>
                     <PrivateRoute exact path="/orderHistory/:key?" component={OrderHistoryView}/>
                     <PrivateRoute exact path="/orderDetail" component={OrderDetailView}/>
+                    <PrivateRoute exact path="/admin_book_statistic" component={AdminBookStatisticView}/>
+                    <PrivateRoute exact path="/admin_user_statistic" component={AdminUserStatisticView}/>
                     <Redirect from="/*" to="/"/>
                 </Switch>
 

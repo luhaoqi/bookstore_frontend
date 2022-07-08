@@ -27,6 +27,27 @@ export const getAllOrderItem = () => {
     });
 };
 
+//获取所有订单
+export const getAllOrderList = () => {
+    return new Promise(function (resolve, reject) {
+        fetch(
+            `${config.backendUrl}/order/all`,
+            {
+                method: 'Get',
+            },
+        )
+            .then(response => response.json())
+            .then(result => {
+                console.log('Order Service: SUCCESS IN getAllOrder :', result);
+                resolve(result);
+            })
+            .catch(error => {
+                console.log('Order Service: ERROR IN getAllOrder :', error);
+                reject(error);
+            });
+    });
+};
+
 //获取指定用户所有订单item
 export const getOrderItemByUid = (uid) => {
     return new Promise(function (resolve, reject) {

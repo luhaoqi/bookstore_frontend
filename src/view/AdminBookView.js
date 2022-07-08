@@ -5,7 +5,8 @@ import {addBook, deleteBook, editBook, getBooks} from "../services/bookService"
 import {AdminHeader} from "../components/AdminHeader";
 import {Button} from "antd";
 
-const headers = ["Bid", "Book", "Author", "Image", "Isbn", "Sales", "Stock"];
+const headers = ["Bid", "Book", "Author", "Image", "Isbn", "Sales", "Stock", "URL"];
+let flag = [];
 
 //不要再搜索状态下修改
 class AdminBookView extends React.Component {
@@ -30,8 +31,11 @@ class AdminBookView extends React.Component {
             .then(res => {
                 console.log("获取书籍~", res);
                 let data = [];
-                for (let i = 0; i < res.length; i++)
-                    data.push([res[i].bid, res[i].name, res[i].author, res[i].image, res[i].isbn, res[i].sales, res[i].stock]);
+                for (let i = 0; i < res.length; i++) {
+                    data.push([res[i].bid, res[i].name, res[i].author, res[i].image, res[i].isbn, res[i].sales, res[i].stock, res[i].image]);
+                    flag[i] = res[i].flag;
+                }
+
                 this.setState({data: data});
             })
             .catch(err => {
@@ -86,7 +90,7 @@ class AdminBookView extends React.Component {
         data[this.state.edit.row][this.state.edit.cell] = input.value;
         let tmp = data[this.state.edit.row];
         console.log(tmp);
-        editBook(tmp[0], tmp[1], tmp[2], tmp[4], tmp[5],tmp[6]);
+        editBook(tmp[0], tmp[1], tmp[2], tmp[4], tmp[5], tmp[6], tmp[7]);
         this.setState({
             edit: null,
             data: data,
@@ -234,7 +238,7 @@ class AdminBookView extends React.Component {
                 <tbody onDoubleClick={this.showEditor}>
                 {this.renderSearch()}
                 {this.state.data.map(function (row, rowidx) {
-                    return (
+                    return flag[rowidx] === 0 ? null : (
                         <tr key={rowidx}>{
                             row.map(function (cell, idx) {
                                 let content = cell;
