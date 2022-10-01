@@ -3,6 +3,8 @@ import '../css/home_page.css'
 import '../css/bootstrap.min.css'
 import {Link} from 'react-router-dom';
 import localStorage from "localStorage";
+import {logout} from "../services/userService";
+import {history} from "../utils/history";
 
 export class HeaderInfo extends React.Component {
 
@@ -16,7 +18,16 @@ export class HeaderInfo extends React.Component {
 
     handlelogout(event) {
         console.log(event);
+        // 删 uid
         localStorage.removeItem("uid");
+        logout()
+            .then(res => {
+                console.log("SUCCESS 登出成功 ", res);
+                alert("start time: " + res.start + "\nend time: " + res.end + "\ntotal time(s): " + parseFloat(res.total)/1000.0)
+            })
+            .catch(err => {
+                console.log('ERROR 登录时连接失败 ', err);
+            });
         event.target.ownerDocument.location.pathname = "/login";
     }
 

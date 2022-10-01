@@ -51,7 +51,7 @@ export class CartDetail extends React.Component {
                             state: {bid: item.book.bid}
                         }
                     }>
-                        <img src={require(`../assets/NewBooks/newbook_${item.book.bid}.jpg`)} alt={item.book.name}/>
+                        <img src={item.book.image} alt={item.book.name}/>
                     </Link>
                     <figcaption>{item.book.name}</figcaption>
                     <figcaption>作者:{item.book.author}</figcaption>

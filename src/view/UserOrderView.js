@@ -1,53 +1,54 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import '../css/Admin.css';
-import {Link, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import {AdminHeader} from "../components/AdminHeader";
-import {Button} from "antd";
+import {getAllOrderList} from "../services/orderService";
+import {DatePicker} from 'antd';
 import localStorage from "localStorage";
-import {getAllOrderItem, getOrderItemByUid} from "../services/orderService";
 import {HeaderInfo} from "../components/HeaderInfo";
-import {getAllOrder} from "../services/userService";
 
-const headers = ["OrderListId", "TotPrice", "Time", "Book", "BookPrice", "Num"];
+const {RangePicker} = DatePicker;
+
+const headers = ["BookName", "Sales", "TotPrice"];
+
+let allBook = [], BookInfo = [];
+let totSales, totPrice;
 
 //不要再搜索状态下修改
 class UserOrderView extends React.Component {
+
+
     constructor(props) {
         super(props);
         this.state = {
-            constData: [],
             data: [],
+            res: [],
             sortby: null,
             descending: false,
+            edit: null, // [row index, cell index],
             search: false,
             preSearchData: null,
+            startTime: null,
+            endTime: null,
+            totPrice: 0,
+            totSales: 0,
         };
-    }
-
-    getOrderInfo() {
-        getOrderItemByUid(localStorage["uid"])
+        getAllOrderList()
             .then(res => {
                 console.log("获取订单：", res);
-                let data = [];
-                for (let i = 0; i < res.length; i++)
-                    data.push([res[i].orderListId, res[i].price, res[i].time, res[i].bookname, res[i].bookprice, res[i].num]);
-                this.setState({data: data, constData: data});
+                BookInfo = res;
+                this.filterAllBook();
             })
             .catch(err => {
                 console.log('获取订单失败 ', err);
             });
     }
 
-    componentDidMount() {
-        if (!localStorage["uid"]) return;
-        this.getOrderInfo();
-    }
-
 
     sort = (e) => {
         let column = e.target.cellIndex;
         let data = this.state.data.slice();
+        // let data = allBook.slice();
         let descending = this.state.sortby === column && !this.state.descending;
         data.sort(function (a, b) {
             return descending
@@ -61,6 +62,27 @@ class UserOrderView extends React.Component {
         });
     };
 
+    showEditor = (e) => {
+        this.setState({
+            edit: {
+                row: parseInt(e.target.dataset.row, 10),
+                cell: e.target.cellIndex,
+            }
+        });
+    };
+
+    save = (e) => {
+        // e.preventDefault();
+        // let input = e.target.firstChild;
+        // let data = this.state.data.slice();
+        // data[this.state.edit.row][this.state.edit.cell] = input.value;
+        // let tmp = data[this.state.edit.row];
+        // editBook(tmp[0], tmp[1], tmp[2], tmp[3], tmp[4]);
+        // this.setState({
+        //     edit: null,
+        //     data: data,
+        // });
+    };
 
     toggleSearch = () => {
         if (this.state.search) {
@@ -71,6 +93,7 @@ class UserOrderView extends React.Component {
             this.preSearchData = null;
         } else {
             this.preSearchData = this.state.data;
+            // this.preSearchData = allBook;
             this.setState({
                 search: true,
             });
@@ -96,8 +119,27 @@ class UserOrderView extends React.Component {
             <div>
                 <HeaderInfo/>
                 {this.renderToolbar()}
+                <br/>
+                <div>
+                    <label> 根据时间筛选订单： </label>
+                    <RangePicker showTime
+                                 onChange={(v) => {
+                                     this.setState(
+                                         {
+                                             startTime: v[0].toDate(),
+                                             endTime: v[1].toDate(),
+                                         }, () => {
+                                             this.filterAllBook();
+                                         }
+                                     )
+                                 }}/>
+                </div>
+                <div>
+                    <text>{`购买总本数： ${this.state.totSales}`}</text>
+                    <br/>
+                    <text>{`购买总金额： ${this.state.totPrice / 100.0}`}</text>
+                </div>
                 {this.renderTable()}
-                {this.renderstatistic()}
             </div>
         );
     };
@@ -127,6 +169,80 @@ class UserOrderView extends React.Component {
         );
     };
 
+    rendereachrow = (row, rowidx) => {
+        let res = [];
+        for (let idx = 0; idx < row.length; idx++) {
+            const cell = row[idx];
+
+            let content = cell;
+            let edit = this.state.edit;
+            if (edit && edit.row === rowidx && edit.cell === idx) {
+                content = (
+                    <form onSubmit={this.save}>
+                        <input type="text" defaultValue={cell}/>
+                    </form>
+                );
+            }
+            if (headers[idx] === "TotPrice" || headers[idx] === "BookPrice") {
+                content = parseFloat(content) / 100.0;
+            }
+            res.push(<td key={idx} data-row={rowidx} text-align="center">{content} </td>);
+        }
+        return res;
+    }
+
+    filterAllBook = () => {
+        let uid = parseInt(localStorage["uid"]);
+        allBook = [];
+        const {startTime, endTime} = this.state;
+        let res = BookInfo;
+
+        console.log(startTime, endTime);
+        for (let i = 0; i < res.length; i++) {
+            let t = new Date(res[i].orderList.time);
+            if (startTime && endTime) {
+                if (!(startTime <= t && endTime >= t)) continue;
+            }
+            if (uid !== res[i].uid) continue;
+            // console.log(typeof uid, typeof res[i].uid);
+            const name = res[i].bookName, sale = res[i].bookSales, price = res[i].bookPrice;
+            // console.log(t, name, sale, price);
+            for (let j = 0; j < name.length; j++) {
+                let flag = false;
+                for (let k = 0; k < allBook.length; k++)
+                    if (allBook[k][0] === name[j]) {
+                        flag = true;
+                        allBook[k][1] += sale[j];
+                        allBook[k][2] += price[j] * sale[j];
+                    }
+                if (flag) continue;
+                allBook.push([name[j], sale[j], sale[j] * price[j]]);
+            }
+        }
+        console.log("allBook:", allBook);
+        this.setState({data: allBook});
+        totSales = totPrice = 0;
+        for (let i = 0; i < allBook.length; i++) {
+            totSales += allBook[i][1];
+            totPrice += allBook[i][2];
+        }
+        console.log("totSales", totSales, "totPrice", totPrice);
+        this.setState({totSales: totSales, totPrice: totPrice});
+    }
+
+    renderTablecontent = () => {
+        const data = this.state.data;
+        let res = [];
+        for (let rowidx = 0; rowidx < data.length; rowidx++) {
+            const row = data[rowidx];
+            res.push(
+                <tr key={rowidx}>
+                    {this.rendereachrow(row, rowidx)}
+                </tr>);
+        }
+        return res;
+    }
+
     renderTable = () => {
         return (
             <table>
@@ -142,68 +258,12 @@ class UserOrderView extends React.Component {
                 </thead>
                 <tbody onDoubleClick={this.showEditor}>
                 {this.renderSearch()}
-                {this.state.data.map(function (row, rowidx) {
-                    return (
-                        <tr key={rowidx}>{
-                            row.map(function (cell, idx) {
-                                let content = cell;
-                                if (headers[idx] === "TotPrice" || headers[idx] === "BookPrice") {
-                                    content = parseFloat(content) / 100.0;
-                                }
-                                return <td key={idx} data-row={rowidx}>{content}</td>;
-                            }, this)}
-                        </tr>
-                    );
-                }, this)}
+                {this.renderTablecontent()}
+
                 </tbody>
             </table>
         );
     }
-    renderstatistic = () => {
-        let a = [];
-        const constData = this.state.constData;
-        console.log("constData:", constData);
-        if (constData.length === 0) return;
-        for (let i = 0; i < constData.length; i++) {
-            let flag = false;
-            for (let j = 0; j < a.length; j++) {
-                if (a[j][0] === constData[i][3]) {
-                    a[j][1] += constData[i][5];
-                    a[j][2] += constData[i][5] * constData[i][4];
-                    flag = true;
-                    break;
-                }
-            }
-            // console.log("!!", flag, constData[i]);
-            if (!flag) {
-                a.push([constData[i][3], constData[i][5], constData[i][4] * constData[i][5]]);
-            }
-            // a.push({
-            //     bookname: constData[i][3],
-            //     num: constData[i][5],
-            //     price: constData[i][4] * constData[i][5]
-            // });
-        }
-        // console.log("A:", a);
-        return (
-            <div>
-                {a.map(function (row, rowidx) {
-                    return (
-                        <tr key={rowidx}>{
-                            row.map(function (cell, idx) {
-                                let content = cell;
-                                if (idx === 2) {
-                                    content = parseFloat(content) / 100.0;
-                                }
-                                return <td key={idx} data-row={rowidx}>{content}</td>;
-                            }, this)}
-                        </tr>
-                    );
-                }, this)}
-
-            </div>
-        );
-    };
 }
 
 export default withRouter(UserOrderView);

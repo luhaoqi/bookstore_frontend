@@ -87,7 +87,7 @@ export class BookList extends React.Component {
 
 
     render() {
-        const requireContext = require.context("../assets/NewBooks", false, /\.jpg$/);
+        // const requireContext = require.context("../assets/NewBooks", false, /\.jpg$/);
         return (
             <div>
                 <div className="new">

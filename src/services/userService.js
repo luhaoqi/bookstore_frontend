@@ -3,37 +3,37 @@ import {postRequest} from "../utils/ajax";
 import {history} from '../utils/history';
 import {message} from 'antd';
 import localStorage from "localStorage";
-
-//login logout 为老师的例子
-
-export const login = (data) => {
-    const url = `${config.apiUrl}/login`;
-    const callback = (data) => {
-        if (data.status >= 0) {
-            localStorage.setItem('user', JSON.stringify(data.data));
-            history.push("/");
-            message.success(data.msg);
-        } else {
-            message.error(data.msg);
-        }
-    };
-    postRequest(url, data, callback);
-};
-
-export const logout = () => {
-    const url = `${config.apiUrl}/logout`;
-
-    const callback = (data) => {
-        if (data.status >= 0) {
-            localStorage.removeItem("user");
-            history.push("/login");
-            message.success(data.msg);
-        } else {
-            message.error(data.msg);
-        }
-    };
-    postRequest(url, {}, callback);
-};
+//
+// //login logout 为老师的例子
+//
+// export const login = (data) => {
+//     const url = `${config.apiUrl}/login`;
+//     const callback = (data) => {
+//         if (data.status >= 0) {
+//             localStorage.setItem('user', JSON.stringify(data.data));
+//             history.push("/");
+//             message.success(data.msg);
+//         } else {
+//             message.error(data.msg);
+//         }
+//     };
+//     postRequest(url, data, callback);
+// };
+//
+// export const logout = () => {
+//     const url = `${config.apiUrl}/logout`;
+//
+//     const callback = (data) => {
+//         if (data.status >= 0) {
+//             localStorage.removeItem("user");
+//             history.push("/login");
+//             message.success(data.msg);
+//         } else {
+//             message.error(data.msg);
+//         }
+//     };
+//     postRequest(url, {}, callback);
+// };
 
 export const checkSession = (callback) => {
     const url = `${config.apiUrl}/checkSession`;
@@ -47,6 +47,8 @@ export const authUser = (name, password) => {
             `${config.backendUrl}/user/auth?name=${name}&password=${password}`,
             {
                 method: 'POST',
+                //请求时添加Cookie
+                credentials: 'include',
             },
         )
             .then(response => response.json())
@@ -56,6 +58,29 @@ export const authUser = (name, password) => {
             })
             .catch(error => {
                 console.log('User Service(Auth): ERROR IN AUTH User :', error);
+                reject(error);
+            });
+    });
+};
+
+//用户登出;
+export const logout = () => {
+    return new Promise(function (resolve, reject) {
+        fetch(
+            `${config.backendUrl}/user/logout`,
+            {
+                method: 'GET',
+                //请求时添加Cookie
+                credentials: 'include',
+            },
+        )
+            .then(response => response.json())
+            .then(result => {
+                console.log('User Service(Logout): SUCCESS IN Logout User :', result);
+                resolve(result);
+            })
+            .catch(error => {
+                console.log('User Service(Logout): ERROR IN Logout User :', error);
                 reject(error);
             });
     });

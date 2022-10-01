@@ -18,14 +18,13 @@ export class OrderDetail extends React.Component {
         getOrderItemByOid(this.props.oid)
             .then(res => {
                 console.log("获取订单信息成功 ", res);
-                this.setState({cartItems: res});
                 let num = 0, price = 0;
                 for (let i = 0; i < res.length; i++) {
                     let item = res[i];
                     num += item.num;
                     price += parseFloat(item.book.price) * item.num;
                 }
-                this.setState({totNum: num, totPrice: price});
+                this.setState({cartItems: res, totNum: num, totPrice: price});
             })
             .catch(err => {
                 console.log('ERROR 获取订单信息失败 ', err);
@@ -49,7 +48,7 @@ export class OrderDetail extends React.Component {
                             state: {bid: item.book.bid}
                         }
                     }>
-                        <img src={require(`../assets/NewBooks/newbook_${item.book.bid}.jpg`)} alt={item.book.name}/>
+                        <img src={item.book.image} alt={item.book.name}/>
                     </Link>
                     <figcaption>{item.book.name}</figcaption>
                     <figcaption>作者: {item.book.author}</figcaption>

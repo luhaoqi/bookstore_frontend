@@ -50,3 +50,18 @@ let postRequest = (url, json, callback) => {
 };
 
 export {postRequest,postRequest_v2};
+
+export const myPostRequest = (url) =>{
+    let opts = {
+        method: "POST",
+        credentials: "include"
+    };
+
+    fetch(url,opts)
+        .then((response) => {
+            return response.json()
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+};
