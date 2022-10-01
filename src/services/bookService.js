@@ -1,5 +1,5 @@
 import config from '../utils/config.js';
-import {postRequest, postRequest_v2} from "../utils/ajax";
+import {oldRequest} from "../utils/ajax";
 
 
 // export const getBooks = (data, callback) => {
@@ -15,106 +15,31 @@ import {postRequest, postRequest_v2} from "../utils/ajax";
 // };
 
 export const getBooks = () => {
-    return new Promise(function (resolve, reject) {
-        fetch(
-            `${config.backendUrl}/book/all`,
-            {
-                method: 'GET',
-            },
-        )
-            .then(response => response.json())
-            .then(result => {
-                console.log('Book Service(getBooks): SUCCESS IN getBooks :', result);
-                resolve(result);
-            })
-            .catch(error => {
-                console.log('Book Service(getBooks): ERROR IN getBooks :', error);
-                reject(error);
-            });
-    });
+    let url = `${config.backendUrl}/book/all`;
+    let method = "GET", api_name = "bookService/getBooks";
+    return oldRequest(url, method, api_name);
 }
 
 export const getBook = (bid) => {
-    return new Promise(function (resolve, reject) {
-        console.log(`${config.backendUrl}/book/search?id=${bid}`);
-        fetch(
-            `${config.backendUrl}/book/search?id=${bid}`,
-            {
-                method: 'POST',
-            },
-        )
-            .then(response => response.json())
-            .then(result => {
-                console.log('Book Service(getBook): SUCCESS:', result);
-                resolve(result);
-            })
-            .catch(error => {
-                console.log('Book Service(getBook): ERROR:', error);
-                reject(error);
-            });
-    });
+    let url = `${config.backendUrl}/book/search?id=${bid}`;
+    let method = "POST", api_name = "bookService/getBook";
+    return oldRequest(url, method, api_name);
 }
 
-export const editBook = (bid, name, author, isbn, sales, stock,URL) => {
-    return new Promise(function (resolve, reject) {
-        console.log(`${config.backendUrl}/book/edit?bid=${bid}&name=${name}&author=${author}&isbn=${isbn}&sales=${sales}&stock=${stock}&image=${URL}`);
-        fetch(
-            `${config.backendUrl}/book/edit?bid=${bid}&name=${name}&author=${author}&isbn=${isbn}&sales=${sales}&stock=${stock}&image=${URL}`,
-            {
-                method: 'POST',
-            },
-        )
-            .then(response => response.json())
-            .then(result => {
-                console.log('Book Service(editBook): SUCCESS:', result);
-                resolve(result);
-            })
-            .catch(error => {
-                console.log('Book Service(editBook): ERROR:', error);
-                reject(error);
-            });
-    });
+export const editBook = (bid, name, author, isbn, sales, stock, URL) => {
+    let url = `${config.backendUrl}/book/edit?bid=${bid}&name=${name}&author=${author}&isbn=${isbn}&sales=${sales}&stock=${stock}&image=${URL}`;
+    let method = "POST", api_name = "bookService/editBook";
+    return oldRequest(url, method, api_name);
 }
 
 export const deleteBook = (bid) => {
-    return new Promise(function (resolve, reject) {
-        console.log(`${config.backendUrl}/book/delete?bid=${bid}`);
-        fetch(
-            `${config.backendUrl}/book/delete?bid=${bid}`,
-            {
-                method: 'POST',
-            },
-        )
-            .then(response => response.json())
-            .then(result => {
-                console.log('Book Service(deleteBook): SUCCESS:', result);
-                resolve(result);
-            })
-            .catch(error => {
-                console.log('Book Service(deleteBook): ERROR:', error);
-                reject(error);
-            });
-    });
+    let url = `${config.backendUrl}/book/delete?bid=${bid}`;
+    let method = "POST", api_name = "bookService/deleteBook";
+    return oldRequest(url, method, api_name);
 }
 
 export const addBook = (name, author, price, image, description, isbn, stock) => {
-    return new Promise(function (resolve, reject) {
-        let url = `${config.backendUrl}/book/add?name=${name}&author=${author}&price=${price}&image=${image}&description=${description}&isbn=${isbn}&sales=0&stock=${stock}`;
-        console.log(url);
-        fetch(
-            url,
-            {
-                method: 'POST',
-            },
-        )
-            .then(response => response.json())
-            .then(result => {
-                console.log('Book Service(addBook): SUCCESS:', result);
-                resolve(result);
-            })
-            .catch(error => {
-                console.log('Book Service(addBook): ERROR:', error);
-                reject(error);
-            });
-    });
+    let url = `${config.backendUrl}/book/add?name=${name}&author=${author}&price=${price}&image=${image}&description=${description}&isbn=${isbn}&sales=0&stock=${stock}`;
+    let method = "POST", api_name = "bookService/addBook";
+    return oldRequest(url, method, api_name);
 }

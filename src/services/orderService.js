@@ -1,93 +1,30 @@
 import config from '../utils/config.js';
-import {postRequest} from "../utils/ajax";
-import {history} from '../utils/history';
-import {message} from 'antd';
-import localStorage from "localStorage";
-
-
+import {oldRequest} from "../utils/ajax";
 
 //获取所有订单item
 export const getAllOrderItem = () => {
-    return new Promise(function (resolve, reject) {
-        fetch(
-            `${config.backendUrl}/orderItem/all`,
-            {
-                method: 'Get',
-            },
-        )
-            .then(response => response.json())
-            .then(result => {
-                console.log('Order Service: SUCCESS IN getAllOrderItem :', result);
-                resolve(result);
-            })
-            .catch(error => {
-                console.log('Order Service: ERROR IN getAllOrderItem :', error);
-                reject(error);
-            });
-    });
+    let url = `${config.backendUrl}/orderItem/all`;
+    let method = "GET", api_name = "orderService/getAllOrderItem";
+    return oldRequest(url, method, api_name);
 };
 
 //获取所有订单
 export const getAllOrderList = () => {
-    return new Promise(function (resolve, reject) {
-        fetch(
-            `${config.backendUrl}/order/all`,
-            {
-                method: 'Get',
-            },
-        )
-            .then(response => response.json())
-            .then(result => {
-                console.log('Order Service: SUCCESS IN getAllOrder :', result);
-                resolve(result);
-            })
-            .catch(error => {
-                console.log('Order Service: ERROR IN getAllOrder :', error);
-                reject(error);
-            });
-    });
+    let url = `${config.backendUrl}/order/all`;
+    let method = "Get", api_name = "orderService/getAllOrderList";
+    return oldRequest(url, method, api_name);
 };
 
 //获取指定用户所有订单item
 export const getOrderItemByUid = (uid) => {
-    return new Promise(function (resolve, reject) {
-        console.log(`${config.backendUrl}/orderItem/getByUid?uid=${uid}`);
-        fetch(
-            `${config.backendUrl}/orderItem/getByUid?uid=${uid}`,
-            {
-                method: 'POST',
-            },
-        )
-            .then(response => response.json())
-            .then(result => {
-                console.log('Order Service: SUCCESS IN getOrderItemByUid :', result);
-                resolve(result);
-            })
-            .catch(error => {
-                console.log('Order Service: ERROR IN getOrderItemByUid :', error);
-                reject(error);
-            });
-    });
+    let url = `${config.backendUrl}/orderItem/getByUid?uid=${uid}`;
+    let method = "POST", api_name = "orderService/getOrderItemByUid";
+    return oldRequest(url, method, api_name);
 };
 
 //获取指定 oid 所有订单item
 export const getOrderItemByOid = (oid) => {
-    return new Promise(function (resolve, reject) {
-        console.log(`${config.backendUrl}/orderItem/getByOid?oid=${oid}`);
-        fetch(
-            `${config.backendUrl}/orderItem/getByOid?oid=${oid}`,
-            {
-                method: 'POST',
-            },
-        )
-            .then(response => response.json())
-            .then(result => {
-                console.log('Order Service: SUCCESS IN getOrderItemByOid :', result);
-                resolve(result);
-            })
-            .catch(error => {
-                console.log('Order Service: ERROR IN getOrderItemByOid :', error);
-                reject(error);
-            });
-    });
+    let url = `${config.backendUrl}/orderItem/getByOid?oid=${oid}`;
+    let method = "POST", api_name = "orderService/getOrderItemByOid";
+    return oldRequest(url, method, api_name);
 };

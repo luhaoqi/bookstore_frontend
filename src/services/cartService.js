@@ -1,93 +1,30 @@
 import config from '../utils/config.js';
-
+import {oldRequest} from "../utils/ajax";
 
 //获取购物车所有书
 export const getAllCartItems = (uid) => {
-    return new Promise(function (resolve, reject) {
-        fetch(
-            `${config.backendUrl}/cartItem/getAllCartItems?uid=${uid}`,
-            {
-                method: 'GET',
-            },
-        )
-            .then(response => response.json())
-            .then(result => {
-                console.log('Cart Service(Auth): SUCCESS IN getAllCartItems :', result);
-                resolve(result);
-            })
-            .catch(error => {
-                console.log('Cart Service(Auth): ERROR IN getAllCartItems :', error);
-                reject(error);
-            });
-    });
+    let url = `${config.backendUrl}/cartItem/getAllCartItems?uid=${uid}`;
+    let method = "GET", api_name = "cartService/getAllCartItems";
+    return oldRequest(url, method, api_name);
 };
 
 //增加一本书到购物车
 export const addBookToCart = (uid, bid) => {
-    console.log(`${config.backendUrl}/cartItem/add?uid=${uid}&bid=${bid}`);
-    return new Promise(function (resolve, reject) {
-        fetch(
-            `${config.backendUrl}/cartItem/add?uid=${uid}&bid=${bid}`,
-            {
-                method: 'POST',
-            },
-        )
-            .then(response => response.json())
-            .then(result => {
-                console.log('Cart Service(Auth): SUCCESS IN addBookToCart :', result);
-                resolve(result);
-            })
-            .catch(error => {
-                console.log('Cart Service(Auth): ERROR IN addBookToCart :', error);
-                reject(error);
-            });
-    });
+    let url = `${config.backendUrl}/cartItem/add?uid=${uid}&bid=${bid}`;
+    let method = "POST", api_name = "cartService/addBookToCart";
+    return oldRequest(url, method, api_name);
 };
 
 //增加一本书到购物车
 export const deleteBookFromCart = (uid, bid) => {
-    console.log(`${config.backendUrl}/cartItem/delete?uid=${uid}&bid=${bid}`);
-    return new Promise(function (resolve, reject) {
-        fetch(
-            `${config.backendUrl}/cartItem/delete?uid=${uid}&bid=${bid}`,
-            {
-                method: 'POST',
-            },
-        )
-            .then(response => {
-                return response.json();
-            })
-            .then(result => {
-                console.log('Cart Service(Auth): SUCCESS IN deleteBookFromCart :', result);
-                resolve(result);
-            })
-            .catch(error => {
-                console.log('Cart Service(Auth): ERROR IN deleteBookFromCart :', error);
-                reject(error);
-            });
-    });
+    let url = `${config.backendUrl}/cartItem/delete?uid=${uid}&bid=${bid}`;
+    let method = "POST", api_name = "cartService/deleteBookFromCart";
+    return oldRequest(url, method, api_name);
 };
 
 export const purchaseAll = (uid, tel, address, name) => {
-    console.log(`{config.backendUrl}/order/purchase?uid=${uid}&tel=${tel}&address=${address}&name=${name}`);
-    return new Promise(function (resolve, reject) {
-        fetch(
-            `${config.backendUrl}/order/purchase?uid=${uid}&tel=${tel}&address=${address}&name=${name}`,
-            {
-                method: 'POST',
-            },
-        )
-            .then(response => {
-                return response;
-            })
-            .then(result => {
-                console.log('Cart Service(Auth): SUCCESS IN purchaseAll :', result);
-                resolve(result);
-            })
-            .catch(error => {
-                console.log('Cart Service(Auth): ERROR IN purchaseAll :', error);
-                reject(error);
-            });
-    });
+    let url = `${config.backendUrl}/order/purchase?uid=${uid}&tel=${tel}&address=${address}&name=${name}`;
+    let method = "POST", api_name = "cartService/purchaseAll";
+    return oldRequest(url, method, api_name);
 };
 
