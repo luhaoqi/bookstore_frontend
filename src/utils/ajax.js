@@ -1,10 +1,8 @@
-import {message} from 'antd';
-
 let postRequest_v2 = (url, data, callback) => {
     let formData = new FormData();
 
-    for (let p in data){
-        if(data.hasOwnProperty(p))
+    for (let p in data) {
+        if (data.hasOwnProperty(p))
             formData.append(p, data[p]);
     }
 
@@ -14,7 +12,7 @@ let postRequest_v2 = (url, data, callback) => {
         credentials: "include"
     };
 
-    fetch(url,opts)
+    fetch(url, opts)
         .then((response) => {
             return response.json()
         })
@@ -22,7 +20,7 @@ let postRequest_v2 = (url, data, callback) => {
             callback(data);
         })
         .catch((error) => {
-           console.log(error);
+            console.log(error);
         });
 };
 
@@ -37,7 +35,7 @@ let postRequest = (url, json, callback) => {
         credentials: "include"
     };
 
-    fetch(url,opts)
+    fetch(url, opts)
         .then((response) => {
             return response.json()
         })
@@ -49,19 +47,24 @@ let postRequest = (url, json, callback) => {
         });
 };
 
-export {postRequest,postRequest_v2};
+export {postRequest, postRequest_v2};
 
-export const myPostRequest = (url) =>{
+export const oldRequest = (url, method, name = '') => {
     let opts = {
-        method: "POST",
+        method: method,
+        //请求时添加Cookie
         credentials: "include"
     };
-
-    fetch(url,opts)
-        .then((response) => {
-            return response.json()
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+    return new Promise(function (resolve, reject) {
+        fetch(url, opts)
+            .then(response => response.json())
+            .then(result => {
+                console.log("SUCCESS in " + name + ":", result);
+                resolve(result);
+            })
+            .catch(error => {
+                console.log("ERROR in " + name + ":", error);
+                reject(error);
+            });
+    });
 };
