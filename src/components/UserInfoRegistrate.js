@@ -1,10 +1,58 @@
 import React from 'react';
 import {purchaseAll} from "../services/cartService";
 import localStorage from "localStorage";
-import {Link} from "react-router-dom";
-import {history} from '../utils/history';
+import config from "../utils/config";
+import {history} from "../utils/history";
+
+function handleMessage(msg) {
+    alert("购买成功,即将转到订单详情页面");
+    msg = JSON.parse(msg)
+    console.log("OrderListId: ", msg.orderListId);
+    history.push({
+        pathname: "/orderDetail",
+        state: {oid: msg.orderListId}
+    })
+}
+
+function openSocket(socket) {
+    //实现化WebSocket对象，指定要连接的服务器地址与端口  建立连接
+    console.log("open socket!")
+    let socketUrl = config.websocketUrl + localStorage["uid"];
+    socket = new WebSocket(socketUrl);
+    //打开事件
+    socket.onopen = function () {
+        console.log("websocket已打开");
+        //socket.send("这是来自客户端的消息" + location.href + new Date());
+    };
+    //获得消息事件
+    socket.onmessage = function (msg) {
+        let serverMsg = "收到服务端信息：" + msg.data;
+        console.log(serverMsg);
+        //发现消息进入    开始处理前端触发逻辑
+        handleMessage(msg.data);
+    };
+    // //关闭事件
+    // socket.onclose = function () {
+    //     console.log("websocket已关闭");
+    // };
+    // //发生了错误事件
+    // socket.onerror = function () {
+    //     console.log("websocket发生了错误");
+    // }
+}
+
+
+function closeSocket(socket) {
+    if (socket === undefined || socket === null) {
+        alert("请先连接");
+        return;
+    }
+    socket.close();
+    socket = null;
+}
 
 export class UserInfoRegistrate extends React.Component {
+    socket = null;
 
     constructor(props) {
         super(props);
@@ -21,8 +69,8 @@ export class UserInfoRegistrate extends React.Component {
         const {tel, address, name} = this.state;
         purchaseAll(localStorage["uid"], tel, address, name)
             .then(res => {
-                console.log("购买成功 ", res);
-                alert("购买成功");
+                console.log("购买完成 ", res);
+                // alert("购买成功");
                 // history.push("/cart");
             })
             .catch(err => {
@@ -31,8 +79,11 @@ export class UserInfoRegistrate extends React.Component {
             });
     }
 
-    render() {
+    componentDidMount() {
+        openSocket(this.socket)
+    }
 
+    render() {
 
         return (
             <div className="registration">
@@ -89,12 +140,12 @@ export class UserInfoRegistrate extends React.Component {
                     {/*    <input type="radio" name="question1" value="WechatPay"/>微信*/}
                     {/*    <input type="radio" name="question1" value="bank"/>银联*/}
                     {/*</form>*/}
-                    <Link to={{
-                        pathname: "/orderHistory",
-                    }} onClick={this.handlePurchase}>
-                        提交订单
-                    </Link>
-                    {/*<Button className="checkout" size={"middle"} onClick={this.handlePurchase}>提交订单</Button>*/}
+                    {/*<Link to={{*/}
+                    {/*    pathname: "/orderHistory",*/}
+                    {/*}} onClick={this.handlePurchase}>*/}
+                    {/*    提交订单*/}
+                    {/*</Link>*/}
+                    <button className="checkout" onClick={this.handlePurchase}>提交订单</button>
                 </div>
             </div>
 
