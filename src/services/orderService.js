@@ -28,3 +28,24 @@ export const getOrderItemByOid = (oid) => {
     let method = "POST", api_name = "orderService/getOrderItemByOid";
     return oldRequest(url, method, api_name);
 };
+
+//计算订单总价
+export const order_mul = (num, price,callback) => {
+    let url = `${config.funtionServiceUrl}/mul`;
+    let opts = {
+        method: "POST",
+        //请求时添加Cookie
+        credentials: "include",
+        body:`${num},${price}`,
+    };
+    return new Promise(function (resolve, reject) {
+        fetch(url, opts)
+            .then(response => response.json())
+            .then(result => {
+                resolve(result);
+            })
+            .catch(error => {
+                reject(error);
+            });
+    });
+};

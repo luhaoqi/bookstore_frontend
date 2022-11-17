@@ -20,6 +20,12 @@ export const getBooks = () => {
     return oldRequest(url, method, api_name);
 }
 
+export const getBooksFilter = (key) => {
+    let url = `${config.backendUrl}/book/filter?key=${key}`;
+    let method = "POST", api_name = "bookService/getBooksFilter";
+    return oldRequest(url, method, api_name);
+}
+
 export const getBook = (bid) => {
     let url = `${config.backendUrl}/book/search?id=${bid}`;
     let method = "POST", api_name = "bookService/getBook";
