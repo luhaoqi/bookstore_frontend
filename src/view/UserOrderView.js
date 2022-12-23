@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/Admin.css';
 import {withRouter} from "react-router-dom";
 import {AdminHeader} from "../components/AdminHeader";
-import {getAllOrderList, order_mul} from "../services/orderService";
+import {getAllOrderList} from "../services/orderService";
 import {DatePicker} from 'antd';
 import localStorage from "localStorage";
 import {HeaderInfo} from "../components/HeaderInfo";
@@ -191,19 +191,6 @@ class UserOrderView extends React.Component {
         return res;
     }
 
-    handle_rpc_mul = (k, totPrice) => {
-        allBook[k][2] += totPrice;
-        // console.log("allBook:", allBook);
-        this.setState({data: allBook});
-        totSales = totPrice = 0;
-        for (let i = 0; i < allBook.length; i++) {
-            totSales += allBook[i][1];
-            totPrice += allBook[i][2];
-        }
-        // console.log("totSales", totSales, "totPrice", totPrice);
-        this.setState({totSales: totSales, totPrice: totPrice});
-    }
-
     filterAllBook = () => {
         let uid = parseInt(localStorage["uid"]);
         allBook = [];
@@ -226,29 +213,21 @@ class UserOrderView extends React.Component {
                     if (allBook[k][0] === name[j]) {
                         flag = true;
                         allBook[k][1] += sale[j];
-                        // allBook[k][2] += price[j] * sale[j];
+                        allBook[k][2] += price[j] * sale[j];
                     }
                 if (flag) continue;
-                // allBook.push([name[j], sale[j], sale[j] * price[j]]);
-                allBook.push([name[j], sale[j], price[j]]);
+                allBook.push([name[j], sale[j], sale[j] * price[j]]);
             }
         }
-        for (let k = 0; k < allBook.length; k++){
-            // allBook[k][2] += allBook[k][2] * allBook[k][1];
-            order_mul(allBook[k][1], allBook[k][2])
-                .then(data => this.handle_rpc_mul(k, data[0]))
+        console.log("allBook:", allBook);
+        this.setState({data: allBook});
+        totSales = totPrice = 0;
+        for (let i = 0; i < allBook.length; i++) {
+            totSales += allBook[i][1];
+            totPrice += allBook[i][2];
         }
-
-
-        // console.log("allBook:", allBook);
-        // this.setState({data: allBook});
-        // totSales = totPrice = 0;
-        // for (let i = 0; i < allBook.length; i++) {
-        //     totSales += allBook[i][1];
-        //     totPrice += allBook[i][2];
-        // }
-        // console.log("totSales", totSales, "totPrice", totPrice);
-        // this.setState({totSales: totSales, totPrice: totPrice});
+        console.log("totSales", totSales, "totPrice", totPrice);
+        this.setState({totSales: totSales, totPrice: totPrice});
     }
 
     renderTablecontent = () => {

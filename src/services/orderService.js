@@ -30,7 +30,7 @@ export const getOrderItemByOid = (oid) => {
 };
 
 //计算订单总价
-export const order_mul = (num, price) => {
+export const order_mul = (num, price,callback) => {
     let url = `${config.funtionServiceUrl}/mul`;
     let opts = {
         method: "POST",
