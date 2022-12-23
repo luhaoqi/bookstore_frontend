@@ -72,7 +72,7 @@ export class HeaderInfo extends React.Component {
                     <div className="collapse navbar-collapse " id="navbarSupportedContent">
                         <ul className="navbar-nav mr-4">
                             <li className="nav-item">
-                                <Link className="nav-link" to="/bookSearch">简介搜索</Link>
+                                <Link className="nav-link" to="/bookSearch">详情搜索</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/userOrder">我的订单</Link>

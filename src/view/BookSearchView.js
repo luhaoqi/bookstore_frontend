@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/Admin.css';
 import {Button} from 'antd';
-import {getBooksFilter} from "../services/bookService";
+import {getBookByName, getBooksByKind, getBooksFilter, getkindNeighbors} from "../services/bookService";
 import {withRouter} from "react-router-dom";
 
 
@@ -39,6 +39,35 @@ class AdminOrderListView extends React.Component {
             });
     }
 
+    kindSearch = () =>{
+        getBookByName(this.state.input)
+            .then(res => {
+                if (res.name === 'null'){
+                    alert("No this Book.")
+                    return;
+                }
+                let kind = res.kind;
+                getkindNeighbors(kind)
+                    .then(res=>{
+                        let choose = res[0].kind
+                        console.log(res, choose);
+                        getBooksByKind(choose)
+                            .then(res=>{
+                                let d = [];
+                                for (let i = 0; i < res.length; i++) {
+                                    const t = res[i];
+                                    d.push([t.id, t.name, t.author, t.description]);
+                                }
+
+                                this.setState({data: d});
+                            })
+                    })
+            })
+            .catch(err => {
+                console.log('获取书籍失败 ', err);
+            });
+    }
+
     render = () => {
         return (
             <div>
@@ -50,6 +79,10 @@ class AdminOrderListView extends React.Component {
                                    {input: e.target.value}
                                )
                            }}/>
+                    <Button type="primary"
+                            onClick={this.kindSearch}>
+                        kind Search
+                    </Button>
                     <Button type="primary"
                             onClick={() => {
                                 this.setState({search: this.state.input})

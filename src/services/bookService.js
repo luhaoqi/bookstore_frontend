@@ -26,16 +26,52 @@ export const getBooksFilter = (key) => {
     return oldRequest(url, method, api_name);
 }
 
+export const getBookByName = (name) => {
+    let url = `${config.backendUrl}/book/name?name=${name}`;
+    let method = "GET", api_name = "bookService/getBookByName";
+    return oldRequest(url, method, api_name);
+}
+export const getBooksByKind = (kind) => {
+    let url = `${config.backendUrl}/book/kind?kind=${kind}`;
+    let method = "GET", api_name = "bookService/getBooksByKind";
+    return oldRequest(url, method, api_name);
+}
+
+export const getkindNeighbors = (kind) => {
+    let url = `${config.backendUrl}/bookkind/find_neighbor_one_step?kind=${kind}`;
+    let method = "GET", api_name = "bookService/getkindNeighbors";
+    return oldRequest(url, method, api_name);
+}
+
 export const getBook = (bid) => {
     let url = `${config.backendUrl}/book/search?id=${bid}`;
     let method = "POST", api_name = "bookService/getBook";
     return oldRequest(url, method, api_name);
 }
 
-export const editBook = (bid, name, author, isbn, sales, stock, URL) => {
+export const editBook = (bid, name, author, isbn, sales, stock, URL, BookIcon) => {
     let url = `${config.backendUrl}/book/edit?bid=${bid}&name=${name}&author=${author}&isbn=${isbn}&sales=${sales}&stock=${stock}&image=${URL}`;
     let method = "POST", api_name = "bookService/editBook";
-    return oldRequest(url, method, api_name);
+    let formdata = new FormData();
+    formdata.append("iconBase64", BookIcon);
+    let opts = {
+        method: method,
+        //请求时添加Cookie
+        credentials: "include",
+        body: formdata,
+    };
+    return new Promise(function (resolve, reject) {
+        fetch(url, opts)
+            .then(response => response.json())
+            .then(result => {
+                console.log("SUCCESS in " + api_name + ":", result);
+                resolve(result);
+            })
+            .catch(error => {
+                console.log("ERROR in " + api_name + ":", error);
+                reject(error);
+            });
+    });
 }
 
 export const deleteBook = (bid) => {
@@ -44,8 +80,27 @@ export const deleteBook = (bid) => {
     return oldRequest(url, method, api_name);
 }
 
-export const addBook = (name, author, price, image, description, isbn, stock) => {
+export const addBook = (name, author, price, image, description, isbn, stock, BookIcon) => {
     let url = `${config.backendUrl}/book/add?name=${name}&author=${author}&price=${price}&image=${image}&description=${description}&isbn=${isbn}&sales=0&stock=${stock}`;
     let method = "POST", api_name = "bookService/addBook";
-    return oldRequest(url, method, api_name);
+    let formdata = new FormData();
+    formdata.append("iconBase64", BookIcon);
+    let opts = {
+        method: method,
+        //请求时添加Cookie
+        credentials: "include",
+        body: formdata,
+    };
+    return new Promise(function (resolve, reject) {
+        fetch(url, opts)
+            .then(response => response.json())
+            .then(result => {
+                console.log("SUCCESS in " + api_name + ":", result);
+                resolve(result);
+            })
+            .catch(error => {
+                console.log("ERROR in " + api_name + ":", error);
+                reject(error);
+            });
+    });
 }

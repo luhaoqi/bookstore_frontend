@@ -26,6 +26,7 @@ class AdminBookView extends React.Component {
             description: "",
             isbn: "",
             stock: "",
+            BookIcon: "",
         };
         getBooks()
             .then(res => {
@@ -90,7 +91,7 @@ class AdminBookView extends React.Component {
         data[this.state.edit.row][this.state.edit.cell] = input.value;
         let tmp = data[this.state.edit.row];
         console.log(tmp);
-        editBook(tmp[0], tmp[1], tmp[2], tmp[4], tmp[5], tmp[6], tmp[7]);
+        editBook(tmp[0], tmp[1], tmp[2], tmp[4], tmp[5], tmp[6], tmp[7], this.state.BookIcon);
         this.setState({
             edit: null,
             data: data,
@@ -113,7 +114,7 @@ class AdminBookView extends React.Component {
     };
 
     HandleAddBook = () => {
-        addBook(this.state.bookname, this.state.author, this.state.price, this.state.image_, this.state.description, this.state.isbn, this.state.stock)
+        addBook(this.state.bookname, this.state.author, this.state.price, this.state.image_, this.state.description, this.state.isbn, this.state.stock, this.state.BookIcon)
             .then(res => {
                 console.log('增加书籍成功 ', res);
                 alert("增加书籍成功");
@@ -128,7 +129,8 @@ class AdminBookView extends React.Component {
                     isbn: "",
                     stock: "",
                     description: "",
-                    price: ""
+                    price: "",
+                    BookIcon: ""
                 })
             })
             .catch(err => {
@@ -159,12 +161,30 @@ class AdminBookView extends React.Component {
         this.setState({data: searchdata});
     };
 
+    handleFileChange = e => {
+        const file = e.currentTarget.files[0];
+        const reader = new FileReader();
+
+        reader.readAsDataURL(file); // 得到经过base64编码的图片信息
+        reader.onload = ev => {
+            // 拿到Base64码，然后创建图片
+            // this.img = new Image();//把这个图片挂载到一个实例上
+            let img = ev.target.result;//这个事件源里 就是Base64码
+            //把图片展示出来
+            console.log(img);
+            this.setState({
+                BookIcon: img
+            })
+        }
+    }
 
     render = () => {
         return (
             <div>
                 <AdminHeader/>
                 {this.renderToolbar()}
+                <input type="file" onChange={this.handleFileChange}/>
+                <img src={this.state.BookIcon} alt="空" width='200' height='200'/>
                 {this.renderTable()}
             </div>
         );

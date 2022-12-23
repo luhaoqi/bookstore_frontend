@@ -61,7 +61,8 @@ export class BookList extends React.Component {
                     }>
                         {/*<img src={img} alt="book"/>*/}
                         {/*<Image src={img} preview={false}/>*/}
-                        <Image src={this.state.books[i].image} preview={false}/>
+                        {/*<Image src={this.state.books[i].image} preview={false}/>*/}
+                        <Image src={this.state.books[i].bookIcon.iconBase64} preview={false}/>
                     </Link>
                     <figcaption>{"书名：" + this.state.books[i].name}</figcaption>
                     <figcaption>{"作者：" + this.state.books[i].author}</figcaption>
